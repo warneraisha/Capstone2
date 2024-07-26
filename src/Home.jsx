@@ -16,7 +16,10 @@ let Home = () => {
   };
 
   let filterProduct = (ProCategory) => {
-    console.log(ProCategory);
+    let data = ProductArray.filter((obj) => {
+      return ProCategory == obj.category;
+    });
+    setProductArray(data);
   };
 
   return (

@@ -2,9 +2,9 @@ let ProductCard = ({ obj }) => {
   let { name, seller, price, ratings, category, img } = obj;
 
   return (
-    <div className="card mt-4">
+    <div className="card mt-6">
       <div className="card bg-base-100 w-96 shadow-xl">
-        <figure>
+        <figure className="">
           <img src={img} alt="Shoes" />
         </figure>
         <div className="card-body">
