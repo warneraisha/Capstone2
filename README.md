@@ -1,4 +1,4 @@
-Sure, here's a sample `README.md` file for your Ecommerce React project:
+
 
 ````markdown
 # Ecommerce React Project
