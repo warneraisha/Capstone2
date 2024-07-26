@@ -1,3 +1,4 @@
+
 # Logs
 logs
 *.log
@@ -7,18 +8,63 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependency directories
 node_modules
+jspm_packages
+
+# Build output
 dist
 dist-ssr
-*.local
+out
+build
+.cache
 
-# Editor directories and files
+# Environment variable files
+.env
+.env.*.local
+
+# Next.js
+.next
+out
+
+# Nuxt.js
+.nuxt
+
+# Gatsby files
+.cache/
+public
+
+# Expo files
+.expo
+.expo-shared
+
+# SvelteKit
+.svelte-kit
+
+# Quasar
+.quasar
+
+# Vuepress
+.vuepress/dist
+
+# Snowpack
+snowpack
+
+# Temporary folders
+.tmp
+
+# Ignore all VS Code settings and extensions except for specific files
 .vscode/*
 !.vscode/extensions.json
-.idea
+!.vscode/settings.json
+
+# macOS
 .DS_Store
+
+# Editor directories and files
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+```
