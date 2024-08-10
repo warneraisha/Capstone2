@@ -4,7 +4,7 @@ let Navbar = () => {
       <nav className="bg-white dark:bg-gray-900  start-0 border-b border-gray-200 dark:border-gray-600">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <span className=" text-black self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            Smart Shoes Co.
+            <a href="/">E-Commerce</a>
           </span>
 
           <div

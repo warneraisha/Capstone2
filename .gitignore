@@ -8,6 +8,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+
 # Dependency directories
 node_modules
 jspm_packages
@@ -22,6 +23,7 @@ build
 # Environment variable files
 .env
 .env.*.local
+.eslintrc.cjs
 
 # Next.js
 .next

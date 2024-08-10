@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProductData from './data';
 import ProductCard from './ProductCard';
 
@@ -6,25 +6,35 @@ let Home = () => {
   let [ProductArray, setProductArray] = useState([...ProductData]);
   let [searchText, setSearchText] = useState('');
 
-  let filterTopRated = () => {
-    let data = ProductArray.filter((obj) => {
-      return obj.ratings > 4;
-    });
+  let filterProductData = (fn) => {
+    let data = ProductData.filter(fn);
+
     setProductArray(data);
   };
 
-  let filterProduct = (ProCategory) => {
-    let data = ProductData.filter((obj) => {
-      return ProCategory === obj.category;
-    });
+  let filterTopRated = (obj) => {
+    return obj.rating > 4.5;
+  };
+
+  let filterProduct = (proCategory) => {
+    let fn = (obj) => {
+      return proCategory.toLowerCase() == obj.category.toLowerCase();
+    };
+    let data = ProductData.filter(fn);
     setProductArray(data);
   };
+
+  //  Search Filter
 
   let searchProduct = () => {
-    let data = ProductData.filter((obj) =>
-      obj.name.toLowerCase().includes(searchText.toLowerCase())
-    );
+    let fn = (obj) =>
+      obj.title.toLowerCase().includes(searchText.toLowerCase());
+    let data = ProductData.filter(fn);
+
+    console.log(data);
+
     setProductArray(data);
+    searchText('');
   };
 
   return (
@@ -36,31 +46,20 @@ let Home = () => {
         >
           Top Rated
         </button>
+
         <button
           className="btn ml-2 border-2 hover:border-red-500"
-          onClick={() => filterProduct("Men's Sneaker")}
+          onClick={() => filterProduct('beauty')}
         >
-          Men's Sneaker
-        </button>
-        <button
-          className="btn ml-2 border-2 hover:border-red-500"
-          onClick={() => filterProduct("Men's Pants")}
-        >
-          Men's Pants
-        </button>
-        <button
-          className="btn ml-2 border-2 hover:border-red-500"
-          onClick={() => filterProduct("Men's Boot")}
-        >
-          Men's Boot
+          Beauty
         </button>
 
-        <div className="search-box w-1/2 ml-20">
+        <div className="search-box flex  md:w-auto ">
           <input
             value={searchText}
             onChange={(event) => setSearchText(event.target.value)}
             type="text"
-            placeholder="Type here"
+            placeholder="Search here..."
             className="input input-bordered border-red-500 bg-white text-black w-full max-w-xs"
           />
           <button
@@ -73,27 +72,22 @@ let Home = () => {
 
         <button
           className="btn ml-2 border-2 hover:border-red-500"
-          onClick={() => filterProduct('Bag')}
+          onClick={() => filterProduct('groceries')}
         >
-          Bag
+          Groceries
         </button>
         <button
           className="btn ml-2 border-2 hover:border-red-500"
-          onClick={() => filterProduct('Cap')}
+          onClick={() => filterProduct('fragrances')}
         >
-          Cap
+          Perfumes
         </button>
+
         <button
           className="btn ml-2 border-2 hover:border-red-500"
-          onClick={() => filterProduct('Bottle')}
+          onClick={() => filterProduct('furniture')}
         >
-          Bottle
-        </button>
-        <button
-          className="btn ml-2 border-2 hover:border-red-500"
-          onClick={() => filterProduct('Earphones')}
-        >
-          Earphones
+          Furniture
         </button>
       </div>
       <div className="cards flex flex-wrap justify-around">
