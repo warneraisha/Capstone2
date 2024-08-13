@@ -42,7 +42,7 @@ let Home = () => {
       <div className="utility flex justify-center m-5">
         <button
           className="btn ml-2 border-2 hover:border-red-500"
-          onClick={filterTopRated}
+          onClick={() => filterProductData(filterTopRated)}
         >
           Top Rated
         </button>
