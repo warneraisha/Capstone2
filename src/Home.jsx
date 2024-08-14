@@ -6,6 +6,10 @@ let Home = () => {
   let [ProductArray, setProductArray] = useState([...ProductData]);
   let [searchText, setSearchText] = useState('');
 
+  useEffect(() => {
+    console.log('useEffect called');
+  }, []);
+
   let filterProductData = (fn) => {
     let data = ProductData.filter(fn);
 
@@ -20,8 +24,7 @@ let Home = () => {
     let fn = (obj) => {
       return proCategory.toLowerCase() == obj.category.toLowerCase();
     };
-    let data = ProductData.filter(fn);
-    setProductArray(data);
+    filterProductData(fn);
   };
 
   //  Search Filter
@@ -29,13 +32,11 @@ let Home = () => {
   let searchProduct = () => {
     let fn = (obj) =>
       obj.title.toLowerCase().includes(searchText.toLowerCase());
-    let data = ProductData.filter(fn);
-
-    console.log(data);
-
-    setProductArray(data);
+    filterProductData(fn);
     searchText('');
   };
+
+  console.log('Component Called');
 
   return (
     <div className="border-2 border-red-600 bg-white">
@@ -62,6 +63,8 @@ let Home = () => {
             placeholder="Search here..."
             className="input input-bordered border-red-500 bg-white text-black w-full max-w-xs"
           />
+
+          {/* Search Button */ console.log('rendering')}
           <button
             className="btn btn-accent ml-2 border-2 hover:border-red-500"
             onClick={searchProduct}
