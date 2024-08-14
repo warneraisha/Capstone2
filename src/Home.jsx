@@ -1,17 +1,27 @@
 import { useState, useEffect } from 'react';
-import ProductData from './data';
+// import ProductData from './data';
 import ProductCard from './ProductCard';
+import ShimmerUI from './shimmerUI';
 
 let Home = () => {
-  let [ProductArray, setProductArray] = useState([...ProductData]);
+  let [allData, setAllData] = useState([]);
+  let [ProductArray, setProductArray] = useState([]);
   let [searchText, setSearchText] = useState('');
 
+  let getData = async () => {
+    let data = await fetch('https://dummyjson.com/products');
+    let obj = await data.json();
+
+    setProductArray(obj.products);
+    setAllData(obj.products);
+  };
+
   useEffect(() => {
-    console.log('useEffect called');
+    getData();
   }, []);
 
   let filterProductData = (fn) => {
-    let data = ProductData.filter(fn);
+    let data = allData.filter(fn);
 
     setProductArray(data);
   };
@@ -38,9 +48,17 @@ let Home = () => {
 
   console.log('Component Called');
 
+  if (ProductArray.length == 0) {
+    return (
+      <div>
+        <ShimmerUI />
+      </div>
+    );
+  }
+
   return (
-    <div className="border-2 border-red-600 bg-white">
-      <div className="utility flex justify-center m-5">
+    <div className="border-2 border-red-600 bg-slate-200">
+      <div className="utility flex justify-center ">
         <button
           className="btn ml-2 border-2 hover:border-red-500"
           onClick={() => filterProductData(filterTopRated)}
@@ -49,13 +67,13 @@ let Home = () => {
         </button>
 
         <button
-          className="btn ml-2 border-2 hover:border-red-500"
+          className="btn ml-2  border-2  hover:border-red-500"
           onClick={() => filterProduct('beauty')}
         >
           Beauty
         </button>
 
-        <div className="search-box flex  md:w-auto ">
+        <div className=" flex  md:w-auto w-96 ml-2 ">
           <input
             value={searchText}
             onChange={(event) => setSearchText(event.target.value)}
@@ -64,7 +82,6 @@ let Home = () => {
             className="input input-bordered border-red-500 bg-white text-black w-full max-w-xs"
           />
 
-          {/* Search Button */ console.log('rendering')}
           <button
             className="btn btn-accent ml-2 border-2 hover:border-red-500"
             onClick={searchProduct}
