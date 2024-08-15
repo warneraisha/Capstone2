@@ -1,17 +1,12 @@
 import Navbar from './Navbar';
-import Home from './Home';
-import About from './About';
-import Cart from './Cart';
-import Contact from './Contact';
+// import Home from './Home';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
     <>
       <Navbar />
-      <Home />
-      <About />
-      <Cart />
-      <Contact />
+      <Outlet />
     </>
   );
 }
