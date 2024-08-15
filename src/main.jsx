@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import Home from './Home.jsx';
 import './index.css';
-
 import About from './About';
 import Cart from './Cart';
 import Contact from './Contact';
