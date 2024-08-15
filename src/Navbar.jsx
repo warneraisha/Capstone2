@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 let Navbar = () => {
   return (
     <div>
@@ -12,9 +14,15 @@ let Navbar = () => {
             id="navbar-sticky"
           >
             <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-              <li className="text-black">About</li>
-              <li className="text-black">Cart</li>
-              <li className="text-black">Contact</li>
+              <li className="text-black">
+                <Link to={'about'}>About</Link>
+              </li>
+              <li className="text-black">
+                <Link to={'cart'}>Cart </Link>
+              </li>
+              <li className="text-black">
+                <Link to={'contact'}>Contact</Link>
+              </li>
             </ul>
           </div>
         </div>
