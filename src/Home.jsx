@@ -57,10 +57,10 @@ let Home = () => {
   }
 
   return (
-    <div className="border-2 border-red-600 bg-slate-200">
-      <div className="utility flex justify-center ">
+    <div>
+      <div className=" flex justify-center m-4 bg-red-500">
         <button
-          className="btn ml-2 border-2 hover:border-red-500"
+          className="btn border-2 hover:border-red-500"
           onClick={() => filterProductData(filterTopRated)}
         >
           Top Rated

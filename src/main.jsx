@@ -7,6 +7,7 @@ import './index.css';
 import About from './About';
 import Cart from './Cart';
 import Contact from './Contact';
+import ErrorPage from './ErrorPage.jsx';
 
 let Router = createBrowserRouter([
   {
@@ -32,6 +33,7 @@ let Router = createBrowserRouter([
         element: <Contact />,
       },
     ],
+    errorElement: <ErrorPage>Page Not Found!</ErrorPage>,
   },
 ]);
 

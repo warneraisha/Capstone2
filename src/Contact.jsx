@@ -3,8 +3,8 @@ import React from 'react';
 const Contact = () => {
   return (
     <>
-      <div className="text-8xl bg-slate-300 text-center font-serif m-6 border-8 text-white">
-        Contact Us{' '}
+      <div className="text-8xl bg-slate-300 text-center font-serif m-6 border-8 text-purple-500">
+        Contact Us
       </div>
       <div className="stats shadow align-items-center">
         <div className="stat">
