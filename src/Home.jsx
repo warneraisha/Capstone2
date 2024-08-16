@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-// import ProductData from './data';
 import ProductCard from './ProductCard';
 import ShimmerUI from './shimmerUI';
 
@@ -7,6 +6,11 @@ let Home = () => {
   let [allData, setAllData] = useState([]);
   let [ProductArray, setProductArray] = useState([]);
   let [searchText, setSearchText] = useState('');
+
+  // State for menu visibility
+  const [showFashionMenu, setShowFashionMenu] = useState(false);
+  const [showAccessoriesMenu, setShowAccessoriesMenu] = useState(false);
+  const [showElectronicsMenu, setShowElectronicsMenu] = useState(false);
 
   let getData = async () => {
     let data = await fetch('https://dummyjson.com/products?limit=0&skip=30');
@@ -22,7 +26,6 @@ let Home = () => {
 
   let filterProductData = (fn) => {
     let data = allData.filter(fn);
-
     setProductArray(data);
   };
 
@@ -32,23 +35,30 @@ let Home = () => {
 
   let filterProduct = (proCategory) => {
     let fn = (obj) => {
-      return proCategory.toLowerCase() == obj.category.toLowerCase();
+      return proCategory.toLowerCase() === obj.category.toLowerCase();
     };
     filterProductData(fn);
   };
 
-  //  Search Filter
-
+  // Search Filter
   let searchProduct = () => {
     let fn = (obj) =>
       obj.title.toLowerCase().includes(searchText.toLowerCase());
     filterProductData(fn);
-    searchText('');
+    setSearchText('');
   };
 
-  console.log('Component Called');
+  // Handle Menu Item Click
+  const handleMenuItemClick = (menuSetter) => {
+    menuSetter(false); // Close the submenu
+  };
 
-  if (ProductArray.length == 0) {
+  // Handle Submenu Toggle
+  const handleMenuToggle = (menuId, setter) => {
+    setter((prev) => !prev); // Toggle the visibility
+  };
+
+  if (ProductArray.length === 0) {
     return (
       <div>
         <ShimmerUI />
@@ -57,118 +67,219 @@ let Home = () => {
   }
 
   return (
-    <div>
-      <div className=" flex flex-wrap justify-center m-2 ">
-        <button
-          className="btn border-2 hover:border-purple-500"
-          onClick={() => filterProductData(filterTopRated)}
-        >
-          Top Rated
-        </button>
-        <button
-          className="btn ml-2 border-2 hover:border-purple-500"
-          onClick={() => filterProduct('mens-shirts')}
-        >
-          Men's Clothing
-        </button>
-        <button
-          className="btn ml-2 border-2 hover:border-purple-500"
-          onClick={() => filterProduct('mens-shoes')}
-        >
-          Men's Shoes
-        </button>
-        <button
-          className="btn ml-2 border-2 hover:border-purple-500"
-          onClick={() => filterProduct('mobile-accessories')}
-        >
-          Mobile Accessories
-        </button>
-        <button
-          className="btn ml-2 border-2 hover:border-purple-500"
-          onClick={() => filterProduct('mens-watches')}
-        >
-          Men's Watches
-        </button>
-        <button
-          className="btn ml-2  border-2  hover:border-purple-500"
-          onClick={() => filterProduct('skin-care')}
-        >
-          Beauty
-        </button>
-        <button
-          className="btn ml-2  border-2  hover:border-purple-500"
-          onClick={() => filterProduct('motorcycle')}
-        >
-          Motorcycle
-        </button>
+    <>
+      <div className="bg-white shadow-md p-4">
+        <div className="flex items-center justify-between max-w-7xl mx-auto">
+          {/* Search Bar */}
+          <div className="relative w-full max-w-md">
+            <input
+              value={searchText}
+              onChange={(event) => setSearchText(event.target.value)}
+              type="text"
+              placeholder="Search..."
+              className="w-full h-12 px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button
+              className="absolute inset-y-0 right-0 flex items-center pr-3"
+              onClick={searchProduct}
+            >
+              Search
+            </button>
+          </div>
 
-        <div className=" flex  md:w-auto w-96 ml-2 ">
-          <input
-            value={searchText}
-            onChange={(event) => setSearchText(event.target.value)}
-            type="text"
-            placeholder="Search here..."
-            className="input input-bordered border-purple-500 bg-white text-black w-full max-w-xs"
-          />
+          {/* Menu */}
+          <div className="flex space-x-4">
+            <button
+              className="text-gray-700 hover:text-gray-900 font-medium"
+              onClick={() => filterProductData(filterTopRated)}
+            >
+              Top Rated
+            </button>
 
-          <button
-            className="btn btn-accent ml-2 border-2 hover:border-purple-500"
-            onClick={searchProduct}
-          >
-            Search
-          </button>
+            {/* Parent Menu: Fashion */}
+            <div className="relative z-50">
+              <button
+                className="text-gray-700 p-2 hover:text-gray-900 font-medium"
+                onClick={() => handleMenuToggle('fashion', setShowFashionMenu)}
+              >
+                Fashion
+              </button>
+              {showFashionMenu && (
+                <ul className="absolute bg-white border rounded-md shadow-lg mt-2">
+                  <li>
+                    <button
+                      className="text-gray-700 p-2 hover:text-gray-900 font-medium w-full text-left"
+                      onClick={() => {
+                        filterProduct('mens-shirts');
+                        handleMenuItemClick(setShowFashionMenu);
+                      }}
+                    >
+                      Men's Clothing
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="text-gray-700 p-2 hover:text-gray-900 font-medium w-full text-left"
+                      onClick={() => {
+                        filterProduct('mens-shoes');
+                        handleMenuItemClick(setShowFashionMenu);
+                      }}
+                    >
+                      Men's Shoes
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="text-gray-700 p-2 hover:text-gray-900 font-medium w-full text-left"
+                      onClick={() => {
+                        filterProduct('mens-watches');
+                        handleMenuItemClick(setShowFashionMenu);
+                      }}
+                    >
+                      Men's Watches
+                    </button>
+                  </li>
+                </ul>
+              )}
+            </div>
+
+            {/* Parent Menu: Accessories */}
+            <div className="relative z-50">
+              <button
+                className="text-gray-700 p-2 hover:text-blue-900 font-medium"
+                onClick={() =>
+                  handleMenuToggle('accessories', setShowAccessoriesMenu)
+                }
+              >
+                Accessories
+              </button>
+              {showAccessoriesMenu && (
+                <ul className="absolute bg-white border rounded-md shadow-lg mt-2">
+                  <li>
+                    <button
+                      className="text-gray-700 p-2 hover:text-blue-900 font-medium w-full text-left"
+                      onClick={() => {
+                        filterProduct('mobile-accessories');
+                        handleMenuItemClick(setShowAccessoriesMenu);
+                      }}
+                    >
+                      Mobile
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="text-gray-700 p-2 hover:text-blue-900 font-medium w-full text-left"
+                      onClick={() => {
+                        filterProduct('sunglasses');
+                        handleMenuItemClick(setShowAccessoriesMenu);
+                      }}
+                    >
+                      Sunglasses
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="text-gray-700 p-2 hover:text-blue-900 font-medium w-full text-left"
+                      onClick={() => {
+                        filterProduct('sports-accessories');
+                        handleMenuItemClick(setShowAccessoriesMenu);
+                      }}
+                    >
+                      Sports
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="text-gray-700 p-2 hover:text-blue-900 font-medium w-full text-left"
+                      onClick={() => {
+                        filterProduct('kitchen-accessories');
+                        handleMenuItemClick(setShowAccessoriesMenu);
+                      }}
+                    >
+                      Kitchen
+                    </button>
+                  </li>
+                </ul>
+              )}
+            </div>
+
+            {/* Parent Menu: Electronics */}
+            <div className="relative z-50">
+              <button
+                className="text-gray-700 p-2 hover:text-blue-900 font-medium"
+                onClick={() =>
+                  handleMenuToggle('electronics', setShowElectronicsMenu)
+                }
+              >
+                Electronics
+              </button>
+              {showElectronicsMenu && (
+                <ul className="absolute bg-white border rounded-md shadow-lg mt-2">
+                  <li>
+                    <button
+                      className="text-gray-700 p-2 hover:text-blue-900 font-medium w-full text-left"
+                      onClick={() => {
+                        filterProduct('smartphones');
+                        handleMenuItemClick(setShowElectronicsMenu);
+                      }}
+                    >
+                      Smartphones
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="text-gray-700 p-2 hover:text-blue-900 font-medium w-full text-left"
+                      onClick={() => {
+                        filterProduct('laptops');
+                        handleMenuItemClick(setShowElectronicsMenu);
+                      }}
+                    >
+                      Laptops
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="text-gray-700 p-2 hover:text-blue-900 font-medium w-full text-left"
+                      onClick={() => {
+                        filterProduct('tablets');
+                        handleMenuItemClick(setShowElectronicsMenu);
+                      }}
+                    >
+                      Tablets
+                    </button>
+                  </li>
+                </ul>
+              )}
+            </div>
+
+            {/* Individual Buttons Without Submenus */}
+            <button
+              className="text-gray-700 p-2 hover:text-blue-900 font-medium"
+              onClick={() => filterProduct('motorcycle')}
+            >
+              Motorcycle
+            </button>
+            <button
+              className="text-gray-700 p-2 hover:text-blue-900 font-medium"
+              onClick={() => filterProduct('groceries')}
+            >
+              Groceries
+            </button>
+            <button
+              className="text-gray-700 p-2 hover:text-blue-900 font-medium"
+              onClick={() => filterProduct('skin-care')}
+            >
+              Skin Care
+            </button>
+          </div>
         </div>
-
-        <button
-          className="btn ml-2 border-2 hover:border-purple-500"
-          onClick={() => filterProduct('groceries')}
-        >
-          Groceries
-        </button>
-        <button
-          className="btn ml-2 border-2 hover:border-purple-500"
-          onClick={() => filterProduct('smartphones')}
-        >
-          Smartphones
-        </button>
-        <button
-          className="btn ml-2 border-2 hover:border-purple-500"
-          onClick={() => filterProduct('sports-accessories')}
-        >
-          Sports
-        </button>
-        <button
-          className="btn ml-2 border-2 hover:border-purple-500"
-          onClick={() => filterProduct('sunglasses')}
-        >
-          Sunglasses
-        </button>
-        <button
-          className="btn ml-2 border-2 hover:border-purple-500"
-          onClick={() => filterProduct('laptops')}
-        >
-          Laptops
-        </button>
-
-        <button
-          className="btn ml-2 border-2 hover:border-purple-500"
-          onClick={() => filterProduct('kitchen-accessories')}
-        >
-          Kitchen Accessories
-        </button>
-        <button
-          className="btn ml-2 border-2 hover:border-purple-500"
-          onClick={() => filterProduct('home-decoration')}
-        >
-          Home Products
-        </button>
       </div>
       <div className="cards flex flex-wrap justify-around">
         {ProductArray.map((obj) => (
           <ProductCard obj={obj} key={obj.id}></ProductCard>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
