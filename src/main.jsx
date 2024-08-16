@@ -8,6 +8,7 @@ import About from './About';
 import Cart from './Cart';
 import Contact from './Contact';
 import ErrorPage from './ErrorPage.jsx';
+import SingleProduct from './SingleProduct.jsx';
 
 let Router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ let Router = createBrowserRouter([
       {
         path: '/contact',
         element: <Contact />,
+      },
+      {
+        path: '/product/:id',
+        element: <SingleProduct />,
       },
     ],
     errorElement: <ErrorPage>Page Not Found!</ErrorPage>,

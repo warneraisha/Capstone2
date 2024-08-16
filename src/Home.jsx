@@ -9,7 +9,7 @@ let Home = () => {
   let [searchText, setSearchText] = useState('');
 
   let getData = async () => {
-    let data = await fetch('https://dummyjson.com/products');
+    let data = await fetch('https://dummyjson.com/products?limit=0&skip=30');
     let obj = await data.json();
 
     setProductArray(obj.products);
@@ -58,19 +58,48 @@ let Home = () => {
 
   return (
     <div>
-      <div className=" flex justify-center m-4 bg-red-500">
+      <div className=" flex flex-wrap justify-center m-2 ">
         <button
-          className="btn border-2 hover:border-red-500"
+          className="btn border-2 hover:border-purple-500"
           onClick={() => filterProductData(filterTopRated)}
         >
           Top Rated
         </button>
-
         <button
-          className="btn ml-2  border-2  hover:border-red-500"
-          onClick={() => filterProduct('beauty')}
+          className="btn ml-2 border-2 hover:border-purple-500"
+          onClick={() => filterProduct('mens-shirts')}
+        >
+          Men's Clothing
+        </button>
+        <button
+          className="btn ml-2 border-2 hover:border-purple-500"
+          onClick={() => filterProduct('mens-shoes')}
+        >
+          Men's Shoes
+        </button>
+        <button
+          className="btn ml-2 border-2 hover:border-purple-500"
+          onClick={() => filterProduct('mobile-accessories')}
+        >
+          Mobile Accessories
+        </button>
+        <button
+          className="btn ml-2 border-2 hover:border-purple-500"
+          onClick={() => filterProduct('mens-watches')}
+        >
+          Men's Watches
+        </button>
+        <button
+          className="btn ml-2  border-2  hover:border-purple-500"
+          onClick={() => filterProduct('skin-care')}
         >
           Beauty
+        </button>
+        <button
+          className="btn ml-2  border-2  hover:border-purple-500"
+          onClick={() => filterProduct('motorcycle')}
+        >
+          Motorcycle
         </button>
 
         <div className=" flex  md:w-auto w-96 ml-2 ">
@@ -79,11 +108,11 @@ let Home = () => {
             onChange={(event) => setSearchText(event.target.value)}
             type="text"
             placeholder="Search here..."
-            className="input input-bordered border-red-500 bg-white text-black w-full max-w-xs"
+            className="input input-bordered border-purple-500 bg-white text-black w-full max-w-xs"
           />
 
           <button
-            className="btn btn-accent ml-2 border-2 hover:border-red-500"
+            className="btn btn-accent ml-2 border-2 hover:border-purple-500"
             onClick={searchProduct}
           >
             Search
@@ -91,23 +120,47 @@ let Home = () => {
         </div>
 
         <button
-          className="btn ml-2 border-2 hover:border-red-500"
+          className="btn ml-2 border-2 hover:border-purple-500"
           onClick={() => filterProduct('groceries')}
         >
           Groceries
         </button>
         <button
-          className="btn ml-2 border-2 hover:border-red-500"
-          onClick={() => filterProduct('fragrances')}
+          className="btn ml-2 border-2 hover:border-purple-500"
+          onClick={() => filterProduct('smartphones')}
         >
-          Perfumes
+          Smartphones
+        </button>
+        <button
+          className="btn ml-2 border-2 hover:border-purple-500"
+          onClick={() => filterProduct('sports-accessories')}
+        >
+          Sports
+        </button>
+        <button
+          className="btn ml-2 border-2 hover:border-purple-500"
+          onClick={() => filterProduct('sunglasses')}
+        >
+          Sunglasses
+        </button>
+        <button
+          className="btn ml-2 border-2 hover:border-purple-500"
+          onClick={() => filterProduct('laptops')}
+        >
+          Laptops
         </button>
 
         <button
-          className="btn ml-2 border-2 hover:border-red-500"
-          onClick={() => filterProduct('furniture')}
+          className="btn ml-2 border-2 hover:border-purple-500"
+          onClick={() => filterProduct('kitchen-accessories')}
         >
-          Furniture
+          Kitchen Accessories
+        </button>
+        <button
+          className="btn ml-2 border-2 hover:border-purple-500"
+          onClick={() => filterProduct('home-decoration')}
+        >
+          Home Products
         </button>
       </div>
       <div className="cards flex flex-wrap justify-around">

@@ -3,204 +3,148 @@ import React from 'react';
 const Contact = () => {
   return (
     <>
-      <div className="text-8xl bg-slate-300 text-center font-serif m-6 border-8 text-purple-500">
+      <div className="text-4xl bg-slate-300 text-center font-serif m-6 border-8 text-purple-500">
         Contact Us
       </div>
-      <div className="stats shadow align-items-center">
-        <div className="stat">
-          <div className="stat-figure text-primary">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="inline-block h-8 w-8 stroke-current"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-              ></path>
-            </svg>
-          </div>
-          <div className="stat-title">Total Likes</div>
-          <div className="stat-value text-primary">25.6K</div>
-          <div className="stat-desc">21% more than last month</div>
-        </div>
-
-        <div className="stat">
-          <div className="stat-figure text-secondary">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="inline-block h-8 w-8 stroke-current"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              ></path>
-            </svg>
-          </div>
-          <div className="stat-title">Page Views</div>
-          <div className="stat-value text-secondary">2.6M</div>
-          <div className="stat-desc">21% more than last month</div>
-        </div>
-
-        <div className="stat">
-          <div className="stat-figure text-secondary">
-            <div className="avatar online">
-              <div className="w-16 rounded-full">
-                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-              </div>
+      <div class="sm:p-10 my-auto">
+        <section class="mx-auto max-w-screen-xl md:rounded-md md:border md:shadow-lg">
+          <div class="grid grid-cols-4 text-gray-800 lg:grid-cols-3">
+            <div class="col-span-4 bg-gray-50 px-8 py-10 text-gray-800 md:col-span-2 md:border-r md:px-10 md:py-12 lg:col-span-1">
+              <h2 class="mb-8 text-2xl font-black">Contact me</h2>
+              <ul>
+                <li class="mb-6 flex items-start text-left">
+                  <svg
+                    class="shrink-0 mr-6 text-2xl text-gray-500"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    role="img"
+                    width="1em"
+                    height="1em"
+                    preserveAspectRatio="xMidYMid meet"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5l-8-5V6l8 5l8-5v2z"
+                    />
+                  </svg>
+                  <div>
+                    <a
+                      class="cursor-pointer font-serif text-base md:text-lg"
+                      href="#"
+                    >
+                      Loremipsum.com
+                    </a>
+                    <span class="block text-xs uppercase">email</span>
+                  </div>
+                </li>
+                <li class="my-6 flex items-center text-left">
+                  <svg
+                    class="shrink-0 mr-6 text-2xl text-gray-500"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    role="img"
+                    width="1em"
+                    height="1em"
+                    preserveAspectRatio="xMidYMid meet"
+                    viewBox="0 0 1024 1024"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448s448-200.6 448-448S759.4 64 512 64zm215.3 337.7c.3 4.7.3 9.6.3 14.4c0 146.8-111.8 315.9-316.1 315.9c-63 0-121.4-18.3-170.6-49.8c9 1 17.6 1.4 26.8 1.4c52 0 99.8-17.6 137.9-47.4c-48.8-1-89.8-33-103.8-77c17.1 2.5 32.5 2.5 50.1-2a111 111 0 0 1-88.9-109v-1.4c14.7 8.3 32 13.4 50.1 14.1a111.13 111.13 0 0 1-49.5-92.4c0-20.7 5.4-39.6 15.1-56a315.28 315.28 0 0 0 229 116.1C492 353.1 548.4 292 616.2 292c32 0 60.8 13.4 81.1 35c25.1-4.7 49.1-14.1 70.5-26.7c-8.3 25.7-25.7 47.4-48.8 61.1c22.4-2.4 44-8.6 64-17.3c-15.1 22.2-34 41.9-55.7 57.6z"
+                    />
+                  </svg>
+                  <div>
+                    <a
+                      class="cursor-pointer font-serif text-base md:text-lg"
+                      href="#"
+                    >
+                      Loremipsum.real
+                    </a>
+                    <span class="block text-xs uppercase">twitter</span>
+                  </div>
+                </li>
+                <li class="my-6 flex items-center text-left">
+                  <svg
+                    class="shrink-0 mr-6 text-2xl text-gray-500"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    role="img"
+                    width="1em"
+                    height="1em"
+                    preserveAspectRatio="xMidYMid meet"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                      d="M1 2.838A1.838 1.838 0 0 1 2.838 1H21.16A1.837 1.837 0 0 1 23 2.838V21.16A1.838 1.838 0 0 1 21.161 23H2.838A1.838 1.838 0 0 1 1 21.161V2.838Zm8.708 6.55h2.979v1.496c.43-.86 1.53-1.634 3.183-1.634c3.169 0 3.92 1.713 3.92 4.856v5.822h-3.207v-5.106c0-1.79-.43-2.8-1.522-2.8c-1.515 0-2.145 1.089-2.145 2.8v5.106H9.708V9.388Zm-5.5 10.403h3.208V9.25H4.208v10.54ZM7.875 5.812a2.063 2.063 0 1 1-4.125 0a2.063 2.063 0 0 1 4.125 0Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <div>
+                    <p class="font-serif text-base md:text-lg">Loremipsum</p>
+                    <span class="block text-xs uppercase">LinkedIn</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="order-first col-span-4 max-w-screen-md px-8 py-10 md:order-last md:col-span-2 md:px-10 md:py-12">
+              <h2 class="mb-8 text-2xl font-black">Get in touch</h2>
+              <p class="mt-2 mb-4 font-sans text-sm tracking-normal">
+                Don't be shy to ask me a question.
+              </p>
+              <form action="">
+                <div class="md:col-gap-4 mb-5 grid md:grid-cols-2">
+                  <input
+                    class="col-span-1 w-full border-b py-3 text-sm outline-none focus:border-b-2 focus:border-black"
+                    type="text"
+                    placeholder="Name"
+                    name="name"
+                  />
+                  <input
+                    class="col-span-1 w-full border-b py-3 text-sm outline-none focus:border-b-2 focus:border-black"
+                    type="email"
+                    placeholder="Email"
+                    name="email"
+                  />
+                </div>
+                <textarea
+                  class="mb-10 w-full resize-y whitespace-pre-wrap border-b py-3 text-sm outline-none focus:border-b-2 focus:border-black"
+                  id=""
+                  rows="6"
+                  placeholder="Question"
+                  name="question"
+                ></textarea>
+                <button
+                  type="submit"
+                  class="group flex cursor-pointer items-center rounded-xl bg-blue-600 bg-none px-8 py-4 text-center font-semibold leading-tight text-white"
+                >
+                  Send
+                  <svg
+                    class="group-hover:ml-8 ml-4 transition-all"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    role="img"
+                    width="1em"
+                    height="1em"
+                    preserveAspectRatio="xMidYMid meet"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9.912 12H4L2.023 4.135A.662.662 0 0 1 2 3.995c-.022-.721.772-1.221 1.46-.891L22 12L3.46 20.896c-.68.327-1.464-.159-1.46-.867a.66.66 0 0 1 .033-.186L3.5 15"
+                    />
+                  </svg>
+                </button>
+              </form>
             </div>
           </div>
-          <div className="stat-value">86%</div>
-          <div className="stat-title">Tasks done</div>
-          <div className="stat-desc text-secondary">31 tasks remaining</div>
-        </div>
-      </div>
-      <div>
-        <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
-          <li>
-            <div className="timeline-middle">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="h-5 w-5"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-            <div className="timeline-start mb-10 md:text-end">
-              <time className="font-mono italic">1984</time>
-              <div className="text-lg font-black">First Macintosh computer</div>
-              The Apple Macintosh—later rebranded as the Macintosh 128K—is the
-              original Apple Macintosh personal computer. It played a pivotal
-              role in establishing desktop publishing as a general office
-              function. The motherboard, a 9 in (23 cm) CRT monitor, and a
-              floppy drive were housed in a beige case with integrated carrying
-              handle; it came with a keyboard and single-button mouse.
-            </div>
-            <hr />
-          </li>
-          <li>
-            <hr />
-            <div className="timeline-middle">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="h-5 w-5"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-            <div className="timeline-end mb-10">
-              <time className="font-mono italic">1998</time>
-              <div className="text-lg font-black">iMac</div>
-              iMac is a family of all-in-one Mac desktop computers designed and
-              built by Apple Inc. It has been the primary part of Apple's
-              consumer desktop offerings since its debut in August 1998, and has
-              evolved through seven distinct forms
-            </div>
-            <hr />
-          </li>
-          <li>
-            <hr />
-            <div className="timeline-middle">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="h-5 w-5"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-            <div className="timeline-start mb-10 md:text-end">
-              <time className="font-mono italic">2001</time>
-              <div className="text-lg font-black">iPod</div>
-              The iPod is a discontinued series of portable media players and
-              multi-purpose mobile devices designed and marketed by Apple Inc.
-              The first version was released on October 23, 2001, about 8+1⁄2
-              months after the Macintosh version of iTunes was released. Apple
-              sold an estimated 450 million iPod products as of 2022. Apple
-              discontinued the iPod product line on May 10, 2022. At over 20
-              years, the iPod brand is the oldest to be discontinued by Apple
-            </div>
-            <hr />
-          </li>
-          <li>
-            <hr />
-            <div className="timeline-middle">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="h-5 w-5"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-            <div className="timeline-end mb-10">
-              <time className="font-mono italic">2007</time>
-              <div className="text-lg font-black">iPhone</div>
-              iPhone is a line of smartphones produced by Apple Inc. that use
-              Apple's own iOS mobile operating system. The first-generation
-              iPhone was announced by then-Apple CEO Steve Jobs on January 9,
-              2007. Since then, Apple has annually released new iPhone models
-              and iOS updates. As of November 1, 2018, more than 2.2 billion
-              iPhones had been sold. As of 2022, the iPhone accounts for 15.6%
-              of global smartphone market share
-            </div>
-            <hr />
-          </li>
-          <li>
-            <hr />
-            <div className="timeline-middle">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="h-5 w-5"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-            <div className="timeline-start mb-10 md:text-end">
-              <time className="font-mono italic">2015</time>
-              <div className="text-lg font-black">Apple Watch</div>
-              The Apple Watch is a line of smartwatches produced by Apple Inc.
-              It incorporates fitness tracking, health-oriented capabilities,
-              and wireless telecommunication, and integrates with iOS and other
-              Apple products and services
-            </div>
-          </li>
-        </ul>
+        </section>
       </div>
     </>
   );
