@@ -80,7 +80,7 @@ let Home = () => {
               className="w-full h-12 px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <button
-              className="absolute inset-y-0 right-0 flex items-center pr-3"
+              className="absolute inset-y-0 right-0 flex items-center pr-3 "
               onClick={searchProduct}
             >
               Search
@@ -137,6 +137,28 @@ let Home = () => {
                       }}
                     >
                       Men's Watches
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="text-gray-700 p-2 hover:text-gray-900 font-medium w-full text-left"
+                      onClick={() => {
+                        filterProduct('womens-watches');
+                        handleMenuItemClick(setShowFashionMenu);
+                      }}
+                    >
+                      Women's Watches
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="text-gray-700 p-2 hover:text-gray-900 font-medium w-full text-left"
+                      onClick={() => {
+                        filterProduct('womens-shoes');
+                        handleMenuItemClick(setShowFashionMenu);
+                      }}
+                    >
+                      Women's Shoes
                     </button>
                   </li>
                 </ul>
@@ -197,6 +219,17 @@ let Home = () => {
                       }}
                     >
                       Kitchen
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="text-gray-700 p-2 hover:text-blue-900 font-medium w-full text-left"
+                      onClick={() => {
+                        filterProduct('womens-jewellery');
+                        handleMenuItemClick(setShowAccessoriesMenu);
+                      }}
+                    >
+                      Jewellery
                     </button>
                   </li>
                 </ul>

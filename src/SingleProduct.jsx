@@ -1,15 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
+// Define a set of profile images
+const profileImages = [
+  'https://randomuser.me/api/portraits/men/1.jpg',
+  'https://randomuser.me/api/portraits/women/1.jpg',
+  'https://randomuser.me/api/portraits/men/2.jpg',
+  'https://randomuser.me/api/portraits/women/4.jpg',
+  'https://randomuser.me/api/portraits/men/3.jpg',
+  'https://randomuser.me/api/portraits/women/2.jpg',
+  'https://randomuser.me/api/portraits/men/4.jpg',
+  'https://randomuser.me/api/portraits/women/3.jpg',
+
+  // Add more images as needed
+];
+
+// Function to get a random profile image
+const getRandomProfileImage = () => {
+  const randomIndex = Math.floor(Math.random() * profileImages.length);
+  return profileImages[randomIndex];
+};
+
 // Helper component for breadcrumb navigation
 const Breadcrumb = ({ category, brand }) => (
-  <nav class="flex">
-    <ol role="list" class="flex items-center">
-      <li class="text-left">
-        <div class="-m-1">
+  <nav className="flex">
+    <ol role="list" className="flex items-center">
+      <li className="text-left">
+        <div className="-m-1">
           <Link
             to={'/'}
-            class="rounded-md p-1 text-sm font-medium text-gray-600 focus:text-gray-900 focus:shadow hover:text-gray-800"
+            className="rounded-md p-1 text-sm font-medium text-gray-600 focus:text-gray-900 focus:shadow hover:text-gray-800"
           >
             {' '}
             Home{' '}
@@ -17,13 +37,13 @@ const Breadcrumb = ({ category, brand }) => (
         </div>
       </li>
 
-      <li class="text-left">
-        <div class="flex items-center">
-          <span class="mx-2 text-gray-400">/</span>
-          <div class="-m-1">
+      <li className="text-left">
+        <div className="flex items-center">
+          <span className="mx-2 text-gray-400">/</span>
+          <div className="-m-1">
             <Link
               to={'/'}
-              class="rounded-md p-1 text-sm font-medium text-gray-600 focus:text-gray-900 focus:shadow hover:text-gray-800"
+              className="rounded-md p-1 text-sm font-medium text-gray-600 focus:text-gray-900 focus:shadow hover:text-gray-800"
             >
               {' '}
               Products{' '}
@@ -32,13 +52,13 @@ const Breadcrumb = ({ category, brand }) => (
         </div>
       </li>
 
-      <li class="text-left">
-        <div class="flex items-center">
-          <span class="mx-2 text-gray-400">/</span>
-          <div class="-m-1">
+      <li className="text-left">
+        <div className="flex items-center">
+          <span className="mx-2 text-gray-400">/</span>
+          <div className="-m-1">
             <Link
               to={'/'}
-              class="rounded-md p-1 text-sm font-medium text-gray-600 focus:text-gray-900 focus:shadow hover:text-gray-800"
+              className="rounded-md p-1 text-sm font-medium text-gray-600 focus:text-gray-900 focus:shadow hover:text-gray-800"
               aria-current="page"
             >
               {' '}
@@ -92,6 +112,7 @@ const Rating = ({ rating }) => {
   const stars = Array(5)
     .fill(false)
     .map((_, index) => index < Math.round(rating));
+
   return (
     <div className="flex items-center">
       {stars.map((filled, index) => (
@@ -132,7 +153,16 @@ const SingleProduct = () => {
 
   if (!obj) return <h1>...Loading</h1>;
 
-  const { title, description, images, brand, price, category, rating } = obj;
+  const {
+    title,
+    description,
+    images,
+    brand,
+    price,
+    category,
+    rating,
+    reviews,
+  } = obj;
 
   return (
     <div>
@@ -197,6 +227,52 @@ const SingleProduct = () => {
               </div>
             </div>
           </div>
+          {reviews && reviews.length > 0 && (
+            <section className="mt-12">
+              <h2 className="text-xl font-bold text-gray-900">Reviews</h2>
+              <ul className="mt-6 space-y-6">
+                {reviews.map((review, index) => (
+                  <li key={index} className="py-8 text-left border px-4 m-2">
+                    <div className="flex items-start">
+                      <img
+                        className="block h-10 w-10 max-w-full flex-shrink-0 rounded-full align-middle"
+                        src={getRandomProfileImage()} // Use the random profile image function
+                        alt={review.reviewerName}
+                      />
+                      <div className="ml-6">
+                        <div className="flex items-center">
+                          {[...Array(5)].map((_, starIndex) => (
+                            <svg
+                              key={starIndex}
+                              className={`block h-6 w-6 align-middle ${
+                                starIndex < review.rating
+                                  ? 'text-yellow-500'
+                                  : 'text-gray-400'
+                              }`}
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                          ))}
+                        </div>
+                        <p className="mt-5 text-base text-gray-900">
+                          {review.comment}
+                        </p>
+                        <p className="mt-5 text-sm font-bold text-gray-900">
+                          {review.reviewerName}
+                        </p>
+                        <p className="mt-1 text-sm text-gray-600">
+                          {new Date(review.date).toLocaleDateString()}
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
         </div>
       </section>
     </div>

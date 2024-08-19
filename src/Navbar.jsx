@@ -6,8 +6,8 @@ let Navbar = () => {
       <nav className="bg-white dark:bg-gray-900  start-0 border-b border-gray-200 dark:border-gray-600">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link to="/">
-            <span className="self-center text-2xl font-serif text-purple-500 font-semibold whitespace-nowrap dark:text-white">
-              E-Commerce
+            <span className="self-center text-2xl font-serif text-green-500 font-semibold whitespace-nowrap dark:text-white">
+              Flippy e-Commerce
             </span>
           </Link>
           <div
