@@ -161,6 +161,17 @@ let Home = () => {
                       Women's Shoes
                     </button>
                   </li>
+                  <li>
+                    <button
+                      className="text-gray-700 p-2 hover:text-gray-900 font-medium w-full text-left"
+                      onClick={() => {
+                        filterProduct('womens-dresses');
+                        handleMenuItemClick(setShowFashionMenu);
+                      }}
+                    >
+                      Women's Dresses
+                    </button>
+                  </li>
                 </ul>
               )}
             </div>
@@ -309,7 +320,11 @@ let Home = () => {
       </div>
       <div className="cards flex flex-wrap justify-around">
         {ProductArray.map((obj) => (
-          <ProductCard obj={obj} key={obj.id}></ProductCard>
+          <ProductCard
+            obj={obj}
+            key={obj.id}
+            showRibbon={obj.rating > 4.7}
+          ></ProductCard>
         ))}
       </div>
     </>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-
+import ShimmerProductCard from './ShimmerProductCard';
 // Define a set of profile images
 const profileImages = [
   'https://randomuser.me/api/portraits/men/1.jpg',
@@ -14,6 +14,12 @@ const profileImages = [
 
   // Add more images as needed
 ];
+
+// Upper Case Letter
+
+const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
 
 // Function to get a random profile image
 const getRandomProfileImage = () => {
@@ -62,7 +68,7 @@ const Breadcrumb = ({ category, brand }) => (
               aria-current="page"
             >
               {' '}
-              {category}{' '}
+              {capitalizeFirstLetter(category)}{' '}
             </Link>
           </div>
         </div>
@@ -151,8 +157,12 @@ const SingleProduct = () => {
     fetchProduct();
   }, [id]);
 
-  if (!obj) return <h1>...Loading</h1>;
-
+  if (!obj)
+    return (
+      <>
+        <ShimmerProductCard />
+      </>
+    );
   const {
     title,
     description,

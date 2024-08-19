@@ -1,8 +1,7 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
-let ProductCard = ({ obj }) => {
+let ProductCard = ({ obj, showRibbon }) => {
   let {
     title,
     thumbnail,
@@ -15,10 +14,10 @@ let ProductCard = ({ obj }) => {
     discountPercentage,
   } = obj;
 
-  let Navigate = useNavigate();
+  let navigate = useNavigate();
 
   let handleClick = () => {
-    Navigate(`/product/${id}`);
+    navigate(`/product/${id}`);
   };
 
   // Calculate the number of full, half, and empty stars
@@ -75,10 +74,15 @@ let ProductCard = ({ obj }) => {
       className="relative m-4 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md"
       onClick={handleClick}
     >
-      <a
-        className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl"
-        href="#"
-      >
+      {/* Conditionally render the ribbon if showRibbon is true */}
+      {showRibbon && (
+        <div className="absolute left-0 top-0 h-16 w-16">
+          <div className="bg-indigo-700 absolute transform -rotate-45 text-center text-white font-semibold py-1 left-[-34px] top-[32px] w-[170px]">
+            Popular
+          </div>
+        </div>
+      )}
+      <Link className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl">
         <img
           className="object-cover ml-6 max-w-xs transition duration-300 ease-in-out hover:scale-110"
           src={thumbnail}
@@ -87,7 +91,7 @@ let ProductCard = ({ obj }) => {
         <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
           {Math.floor(discountPercentage)}% OFF
         </span>
-      </a>
+      </Link>
       <div className="mt-4 px-5 pb-5">
         <h5 className="text-xl tracking-tight text-slate-900">{title}</h5>
 
@@ -105,10 +109,7 @@ let ProductCard = ({ obj }) => {
             </span>
           </div>
         </div>
-        <a
-          href="#"
-          className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
-        >
+        <Link className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="mr-2 h-6 w-6"
@@ -124,7 +125,7 @@ let ProductCard = ({ obj }) => {
             />
           </svg>
           Add to cart
-        </a>
+        </Link>
       </div>
     </div>
   );
