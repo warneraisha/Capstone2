@@ -3,16 +3,14 @@ import { Link, useParams } from 'react-router-dom';
 import ShimmerProductCard from './ShimmerProductCard';
 // Define a set of profile images
 const profileImages = [
-  'https://randomuser.me/api/portraits/men/1.jpg',
-  'https://randomuser.me/api/portraits/women/1.jpg',
-  'https://randomuser.me/api/portraits/men/2.jpg',
-  'https://randomuser.me/api/portraits/women/4.jpg',
-  'https://randomuser.me/api/portraits/men/3.jpg',
-  'https://randomuser.me/api/portraits/women/2.jpg',
-  'https://randomuser.me/api/portraits/men/4.jpg',
-  'https://randomuser.me/api/portraits/women/3.jpg',
-
-  // Add more images as needed
+  'https://randomuser.me/api/portraits/men/81.jpg',
+  'https://randomuser.me/api/portraits/women/61.jpg',
+  'https://randomuser.me/api/portraits/men/92.jpg',
+  'https://randomuser.me/api/portraits/women/54.jpg',
+  'https://randomuser.me/api/portraits/men/13.jpg',
+  'https://randomuser.me/api/portraits/women/20.jpg',
+  'https://randomuser.me/api/portraits/men/40.jpg',
+  'https://randomuser.me/api/portraits/women/30.jpg',
 ];
 
 // Upper Case Letter

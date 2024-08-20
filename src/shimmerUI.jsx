@@ -13,7 +13,7 @@ const ShimmerUI = () => {
 
           {/* Shimmer for Menu */}
           <div className="flex space-x-4">
-            {[...Array(6)].map((_, index) => (
+            {[...Array(7)].map((_, index) => (
               <div
                 key={index}
                 className="h-8 bg-gray-200 animate-pulse rounded-lg w-24"

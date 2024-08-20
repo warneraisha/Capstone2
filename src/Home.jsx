@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import ProductCard from './ProductCard';
 import ShimmerUI from './shimmerUI';
+import { Theme } from './utility/ThemeContext';
 
 let Home = () => {
   let [allData, setAllData] = useState([]);
@@ -13,13 +14,17 @@ let Home = () => {
   const [showElectronicsMenu, setShowElectronicsMenu] = useState(false);
 
   let getData = async () => {
-    let data = await fetch('https://dummyjson.com/products?limit=0&skip=30');
+    let data = await fetch('https://dummyjson.com/products?limit=0&skip=0');
     let obj = await data.json();
 
     setProductArray(obj.products);
     setAllData(obj.products);
   };
 
+  // This effect is used to fetch data when the component mounts
+  // The dependency array is empty, so it will only run once
+  // The function getData is called and it will fetch the data
+  // and set the state with the data
   useEffect(() => {
     getData();
   }, []);
@@ -66,9 +71,31 @@ let Home = () => {
     );
   }
 
+  let { theme, setTheme } = useContext(Theme);
+
+  // Define card theme classes
+  let lightTheme = 'cards flex flex-wrap justify-around bg-white';
+  let darkTheme = 'cards flex flex-wrap justify-around bg-gray-900';
+
+  // Define nav-items theme classes
+  let lightThemeNav = 'bg-white text-gray-700';
+  let darkThemeNav = 'bg-gray-900 text-white';
+
+  // Define input field theme classes
+  const inputLightTheme = 'bg-gray-100 border-gray-300';
+  const inputDarkTheme = 'bg-gray-700 border-gray-600';
+
+  // Define submenu theme classes
+  const submenuLightTheme = 'bg-white text-gray-700';
+  const submenuDarkTheme = 'bg-gray-900 text-gray-300';
+
   return (
     <>
-      <div className="bg-white shadow-md p-4">
+      <div
+        className={`shadow-md p-4 ${
+          theme == 'light' ? lightThemeNav : darkThemeNav
+        }`}
+      >
         <div className="flex items-center justify-between max-w-7xl mx-auto">
           {/* Search Bar */}
           <div className="relative w-full max-w-md">
@@ -77,10 +104,12 @@ let Home = () => {
               onChange={(event) => setSearchText(event.target.value)}
               type="text"
               placeholder="Search..."
-              className="w-full h-12 px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={`w-full h-12 px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                theme === 'light' ? inputLightTheme : inputDarkTheme
+              }`}
             />
             <button
-              className="absolute inset-y-0 right-0 flex items-center pr-3 "
+              className="absolute inset-y-0 right-0 flex items-center pr-3"
               onClick={searchProduct}
             >
               Search
@@ -90,7 +119,7 @@ let Home = () => {
           {/* Menu */}
           <div className="flex space-x-4">
             <button
-              className="text-gray-700 hover:text-gray-900 font-medium"
+              className=" font-medium"
               onClick={() => filterProductData(filterTopRated)}
             >
               Top Rated
@@ -99,7 +128,7 @@ let Home = () => {
             {/* Parent Menu: Fashion */}
             <div className="relative z-50">
               <button
-                className="text-gray-700 p-2 hover:text-gray-900 font-medium"
+                className=" p-2  font-medium"
                 onClick={() => handleMenuToggle('fashion', setShowFashionMenu)}
               >
                 Fashion
@@ -108,7 +137,7 @@ let Home = () => {
                 <ul className="absolute bg-white border rounded-md shadow-lg mt-2">
                   <li>
                     <button
-                      className="text-gray-700 p-2 hover:text-gray-900 font-medium w-full text-left"
+                      className=" p-2  font-medium w-full text-left"
                       onClick={() => {
                         filterProduct('mens-shirts');
                         handleMenuItemClick(setShowFashionMenu);
@@ -119,7 +148,7 @@ let Home = () => {
                   </li>
                   <li>
                     <button
-                      className="text-gray-700 p-2 hover:text-gray-900 font-medium w-full text-left"
+                      className=" p-2 font-medium w-full text-left"
                       onClick={() => {
                         filterProduct('mens-shoes');
                         handleMenuItemClick(setShowFashionMenu);
@@ -130,7 +159,7 @@ let Home = () => {
                   </li>
                   <li>
                     <button
-                      className="text-gray-700 p-2 hover:text-gray-900 font-medium w-full text-left"
+                      className=" p-2 font-medium w-full text-left"
                       onClick={() => {
                         filterProduct('mens-watches');
                         handleMenuItemClick(setShowFashionMenu);
@@ -141,7 +170,7 @@ let Home = () => {
                   </li>
                   <li>
                     <button
-                      className="text-gray-700 p-2 hover:text-gray-900 font-medium w-full text-left"
+                      className=" p-2 font-medium w-full text-left"
                       onClick={() => {
                         filterProduct('womens-watches');
                         handleMenuItemClick(setShowFashionMenu);
@@ -152,7 +181,7 @@ let Home = () => {
                   </li>
                   <li>
                     <button
-                      className="text-gray-700 p-2 hover:text-gray-900 font-medium w-full text-left"
+                      className=" p-2 font-medium w-full text-left"
                       onClick={() => {
                         filterProduct('womens-shoes');
                         handleMenuItemClick(setShowFashionMenu);
@@ -163,7 +192,7 @@ let Home = () => {
                   </li>
                   <li>
                     <button
-                      className="text-gray-700 p-2 hover:text-gray-900 font-medium w-full text-left"
+                      className=" p-2 font-medium w-full text-left"
                       onClick={() => {
                         filterProduct('womens-dresses');
                         handleMenuItemClick(setShowFashionMenu);
@@ -179,7 +208,7 @@ let Home = () => {
             {/* Parent Menu: Accessories */}
             <div className="relative z-50">
               <button
-                className="text-gray-700 p-2 hover:text-blue-900 font-medium"
+                className=" p-2 font-medium"
                 onClick={() =>
                   handleMenuToggle('accessories', setShowAccessoriesMenu)
                 }
@@ -190,7 +219,7 @@ let Home = () => {
                 <ul className="absolute bg-white border rounded-md shadow-lg mt-2">
                   <li>
                     <button
-                      className="text-gray-700 p-2 hover:text-blue-900 font-medium w-full text-left"
+                      className=" p-2 font-medium w-full text-left"
                       onClick={() => {
                         filterProduct('mobile-accessories');
                         handleMenuItemClick(setShowAccessoriesMenu);
@@ -201,7 +230,7 @@ let Home = () => {
                   </li>
                   <li>
                     <button
-                      className="text-gray-700 p-2 hover:text-blue-900 font-medium w-full text-left"
+                      className=" p-2 font-medium w-full text-left"
                       onClick={() => {
                         filterProduct('sunglasses');
                         handleMenuItemClick(setShowAccessoriesMenu);
@@ -212,7 +241,7 @@ let Home = () => {
                   </li>
                   <li>
                     <button
-                      className="text-gray-700 p-2 hover:text-blue-900 font-medium w-full text-left"
+                      className=" p-2 font-medium w-full text-left"
                       onClick={() => {
                         filterProduct('sports-accessories');
                         handleMenuItemClick(setShowAccessoriesMenu);
@@ -223,7 +252,7 @@ let Home = () => {
                   </li>
                   <li>
                     <button
-                      className="text-gray-700 p-2 hover:text-blue-900 font-medium w-full text-left"
+                      className=" p-2 font-medium w-full text-left"
                       onClick={() => {
                         filterProduct('kitchen-accessories');
                         handleMenuItemClick(setShowAccessoriesMenu);
@@ -234,7 +263,7 @@ let Home = () => {
                   </li>
                   <li>
                     <button
-                      className="text-gray-700 p-2 hover:text-blue-900 font-medium w-full text-left"
+                      className=" p-2 font-medium w-full text-left"
                       onClick={() => {
                         filterProduct('womens-jewellery');
                         handleMenuItemClick(setShowAccessoriesMenu);
@@ -250,7 +279,7 @@ let Home = () => {
             {/* Parent Menu: Electronics */}
             <div className="relative z-50">
               <button
-                className="text-gray-700 p-2 hover:text-blue-900 font-medium"
+                className=" p-2 font-medium"
                 onClick={() =>
                   handleMenuToggle('electronics', setShowElectronicsMenu)
                 }
@@ -261,7 +290,7 @@ let Home = () => {
                 <ul className="absolute bg-white border rounded-md shadow-lg mt-2">
                   <li>
                     <button
-                      className="text-gray-700 p-2 hover:text-blue-900 font-medium w-full text-left"
+                      className=" p-2 font-medium w-full text-left"
                       onClick={() => {
                         filterProduct('smartphones');
                         handleMenuItemClick(setShowElectronicsMenu);
@@ -272,7 +301,7 @@ let Home = () => {
                   </li>
                   <li>
                     <button
-                      className="text-gray-700 p-2 hover:text-blue-900 font-medium w-full text-left"
+                      className=" p-2 font-medium w-full text-left"
                       onClick={() => {
                         filterProduct('laptops');
                         handleMenuItemClick(setShowElectronicsMenu);
@@ -283,7 +312,7 @@ let Home = () => {
                   </li>
                   <li>
                     <button
-                      className="text-gray-700 p-2 hover:text-blue-900 font-medium w-full text-left"
+                      className=" p-2 font-medium w-full text-left"
                       onClick={() => {
                         filterProduct('tablets');
                         handleMenuItemClick(setShowElectronicsMenu);
@@ -298,19 +327,19 @@ let Home = () => {
 
             {/* Individual Buttons Without Submenus */}
             <button
-              className="text-gray-700 p-2 hover:text-blue-900 font-medium"
+              className=" p-2 font-medium"
               onClick={() => filterProduct('motorcycle')}
             >
               Motorcycle
             </button>
             <button
-              className="text-gray-700 p-2 hover:text-blue-900 font-medium"
+              className=" p-2 font-medium"
               onClick={() => filterProduct('groceries')}
             >
               Groceries
             </button>
             <button
-              className="text-gray-700 p-2 hover:text-blue-900 font-medium"
+              className=" p-2 font-medium"
               onClick={() => filterProduct('skin-care')}
             >
               Skin Care
@@ -318,7 +347,7 @@ let Home = () => {
           </div>
         </div>
       </div>
-      <div className="cards flex flex-wrap justify-around">
+      <div className={theme == 'light' ? lightTheme : darkTheme}>
         {ProductArray.map((obj) => (
           <ProductCard
             obj={obj}

@@ -1,8 +1,10 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { Theme } from './utility/ThemeContext';
 
-let ProductCard = ({ obj, showRibbon }) => {
-  let {
+const ProductCard = ({ obj, showRibbon }) => {
+  const {
     title,
     thumbnail,
     description,
@@ -14,9 +16,11 @@ let ProductCard = ({ obj, showRibbon }) => {
     discountPercentage,
   } = obj;
 
-  let navigate = useNavigate();
+  const { theme, setTheme } = useContext(Theme);
 
-  let handleClick = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
     navigate(`/product/${id}`);
   };
 
@@ -69,11 +73,34 @@ let ProductCard = ({ obj, showRibbon }) => {
     );
   });
 
+  // Theme-specific class names
+  const cardClasses =
+    theme === 'light'
+      ? 'relative m-4 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md'
+      : 'relative m-4 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-700 bg-gray-800 shadow-lg';
+
+  const titleClasses =
+    theme === 'light'
+      ? 'text-xl tracking-tight text-slate-900'
+      : 'text-xl tracking-tight text-slate-200';
+
+  const priceClasses =
+    theme === 'light'
+      ? 'text-2xl font-bold text-slate-900'
+      : 'text-2xl font-bold text-slate-300';
+
+  const discountClasses =
+    theme === 'light'
+      ? 'text-sm text-slate-900 line-through'
+      : 'text-sm text-slate-400 line-through';
+
+  const buttonClasses =
+    theme === 'light'
+      ? 'flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-blue-300'
+      : 'flex items-center justify-center rounded-md bg-slate-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-blue-500';
+
   return (
-    <div
-      className="relative m-4 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md"
-      onClick={handleClick}
-    >
+    <div className={cardClasses} onClick={handleClick}>
       {/* Conditionally render the ribbon if showRibbon is true */}
       {showRibbon && (
         <div className="absolute left-0 top-0 h-16 w-16">
@@ -88,17 +115,17 @@ let ProductCard = ({ obj, showRibbon }) => {
           src={thumbnail}
           alt={title}
         />
-        <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
+        <span className="absolute top-0 right-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-slate-200">
           {Math.floor(discountPercentage)}% OFF
         </span>
       </Link>
       <div className="mt-4 px-5 pb-5">
-        <h5 className="text-xl tracking-tight text-slate-900">{title}</h5>
+        <h5 className={titleClasses}>{title}</h5>
 
         <div className="mt-2 mb-5 flex items-center justify-between">
           <p>
-            <span className="text-2xl font-bold text-slate-900">${price}</span>
-            <span className="text-sm text-slate-900 line-through">
+            <span className={priceClasses}>${price}</span>
+            <span className={discountClasses}>
               ${Math.floor(price + discountPercentage)}
             </span>
           </p>
@@ -109,7 +136,7 @@ let ProductCard = ({ obj, showRibbon }) => {
             </span>
           </div>
         </div>
-        <Link className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+        <Link className={buttonClasses}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="mr-2 h-6 w-6"
