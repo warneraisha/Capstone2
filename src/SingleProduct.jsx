@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useC } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ShimmerProductCard from './ShimmerProductCard';
+import { useContext } from 'react';
+import { Theme } from './utility/ThemeContext';
+
 // Define a set of profile images
 const profileImages = [
   'https://randomuser.me/api/portraits/men/81.jpg',
@@ -174,7 +177,7 @@ const SingleProduct = () => {
 
   return (
     <div>
-      <section className="py-12 sm:py-16">
+      <section className="py-12 sm:py-16  bg-white">
         <div className="container mx-auto px-4">
           <Breadcrumb category={category} brand={brand} />
           <div className="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-5 lg:gap-16">

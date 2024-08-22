@@ -14,7 +14,7 @@ let Home = () => {
   const [showElectronicsMenu, setShowElectronicsMenu] = useState(false);
 
   let getData = async () => {
-    let data = await fetch('https://dummyjson.com/products?limit=0&skip=0');
+    let data = await fetch('https://dummyjson.com/products?limit=0&skip=30');
     let obj = await data.json();
 
     setProductArray(obj.products);
