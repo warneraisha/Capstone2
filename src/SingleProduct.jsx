@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useC } from 'react';
+import React, { useEffect, useState, useContext } from 'react'; // Corrected useC to useContext
 import { Link, useParams } from 'react-router-dom';
 import ShimmerProductCard from './ShimmerProductCard';
-import { useContext } from 'react';
 import { Theme } from './utility/ThemeContext';
 
 // Define a set of profile images
@@ -146,6 +145,9 @@ const SingleProduct = () => {
   const [selectedImage, setSelectedImage] = useState('');
   const { id } = useParams();
 
+  // Access theme context
+  const { theme, toggleTheme } = useContext(Theme);
+
   useEffect(() => {
     const fetchProduct = async () => {
       const response = await fetch(`https://dummyjson.com/products/${id}`);
@@ -176,8 +178,10 @@ const SingleProduct = () => {
   } = obj;
 
   return (
-    <div>
-      <section className="py-12 sm:py-16  bg-white">
+    // Apply theme-based class to the top-level div
+    <div className={theme === 'dark' ? 'dark' : ''}>
+      {/* Optional: Apply a class to the body or a wrapper based on the theme */}
+      <section className="py-12 sm:py-16 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <Breadcrumb category={category} brand={brand} />
           <div className="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-5 lg:gap-16">
@@ -190,30 +194,34 @@ const SingleProduct = () => {
               />
             </div>
             <div className="lg:col-span-2 lg:row-span-2 lg:row-end-2">
-              <h1 className="sm:text-2xl font-bold text-gray-900">{title}</h1>
+              <h1 className="sm:text-2xl font-bold text-gray-900 dark:text-white">
+                {title}
+              </h1>
               <Rating rating={rating} />
-              <div className="mt-6 border-t border-gray-200 pt-6">
-                <h3 className="text-base font-semibold text-gray-900">
+              <div className="mt-6 border-t border-gray-200 dark:border-gray-700 pt-6">
+                <h3 className="text-base font-semibold text-gray-900 dark:text-white">
                   Details
                 </h3>
                 <div className="mt-4 space-y-4">
-                  <div className="flex justify-between text-sm font-medium text-gray-900">
+                  <div className="flex justify-between text-sm font-medium text-gray-900 dark:text-gray-200">
                     <span>Category</span>
                     <span>{category}</span>
                   </div>
-                  <div className="flex justify-between text-sm font-medium text-gray-900">
+                  <div className="flex justify-between text-sm font-medium text-gray-900 dark:text-gray-200">
                     <span>Brand</span>
                     <span>{brand}</span>
                   </div>
-                  <div className="flex justify-between text-sm font-medium text-gray-900">
+                  <div className="flex justify-between text-sm font-medium text-gray-900 dark:text-gray-200">
                     <span>Description</span>
                     <div> : {description}</div>
                   </div>
                 </div>
               </div>
-              <div className="mt-10 flex flex-col items-center justify-between space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0">
+              <div className="mt-10 flex flex-col items-center justify-between space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0 border-gray-200 dark:border-gray-700">
                 <div className="flex items-end">
-                  <h1 className="text-3xl font-bold">${price}</h1>
+                  <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                    ${price}
+                  </h1>
                 </div>
                 <button
                   type="button"
@@ -240,10 +248,15 @@ const SingleProduct = () => {
           </div>
           {reviews && reviews.length > 0 && (
             <section className="mt-12">
-              <h2 className="text-xl font-bold text-gray-900">Reviews</h2>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                Reviews
+              </h2>
               <ul className="mt-6 space-y-6">
                 {reviews.map((review, index) => (
-                  <li key={index} className="py-8 text-left border px-4 m-2">
+                  <li
+                    key={index}
+                    className="py-8 text-left border px-4 m-2 border-gray-200 dark:border-gray-700"
+                  >
                     <div className="flex items-start">
                       <img
                         className="block h-10 w-10 max-w-full flex-shrink-0 rounded-full align-middle"
@@ -258,7 +271,7 @@ const SingleProduct = () => {
                               className={`block h-6 w-6 align-middle ${
                                 starIndex < review.rating
                                   ? 'text-yellow-500'
-                                  : 'text-gray-400'
+                                  : 'text-gray-400 dark:text-gray-600'
                               }`}
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 20 20"
@@ -268,13 +281,13 @@ const SingleProduct = () => {
                             </svg>
                           ))}
                         </div>
-                        <p className="mt-5 text-base text-gray-900">
+                        <p className="mt-5 text-base text-gray-900 dark:text-gray-200">
                           {review.comment}
                         </p>
-                        <p className="mt-5 text-sm font-bold text-gray-900">
+                        <p className="mt-5 text-sm font-bold text-gray-900 dark:text-gray-200">
                           {review.reviewerName}
                         </p>
-                        <p className="mt-1 text-sm text-gray-600">
+                        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
                           {new Date(review.date).toLocaleDateString()}
                         </p>
                       </div>
