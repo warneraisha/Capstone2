@@ -142,23 +142,25 @@ const Home = () => {
 
           <div className="flex space-x-4">
             <button
-              className="flex items-center font-medium transition-all duration-200 bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg"
+              className="flex items-center font-medium transition-all duration-200 bg-transparent hover:bg-gray-400 dark:hover:bg-gray-700 rounded-lg"
               onClick={() => filterProductData(filterTopRated)}
             >
               <FaStar className="mr-2" /> Top Rated
             </button>
 
-            <Menu title="Fashion" items={fashionItems} filterProduct={filterProduct} theme={theme} icon={<FaTshirt />} />
+            <Menu title="Fashion" items={fashionItems} filterProduct={filterProduct} theme={theme} icon={ <FaTshirt />} />
+
             <Menu title="Accessories" items={accessoryItems} filterProduct={filterProduct} theme={theme} icon={<FaShoppingBasket />} />
+
             <Menu title="Electronics" items={electronicsItems} filterProduct={filterProduct} theme={theme} icon={<FaLaptop />} />
 
-            <button className="p-2 font-medium transition-colors duration-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg" onClick={() => filterProduct('motorcycle')}>Motorcycle</button>
-            <button className="p-2 font-medium transition-colors duration-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg" onClick={() => filterProduct('groceries')}>Groceries</button>
-            <button className="p-2 font-medium transition-colors duration-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg" onClick={() => filterProduct('skin-care')}>Skin Care</button>
+            <button className="p-2 font-medium transition-colors duration-200 hover:bg-gray-400 dark:hover:bg-gray-200 rounded-lg" onClick={() => filterProduct('motorcycle')}>Motorcycle</button>
+            <button className="p-2 font-medium transition-colors duration-200 hover:bg-gray-400 dark:hover:bg-gray-700 rounded-lg" onClick={() => filterProduct('groceries')}>Groceries</button>
+            <button className="p-2 font-medium transition-colors duration-200 hover:bg-gray-400 dark:hover:bg-gray-700 rounded-lg" onClick={() => filterProduct('skin-care')}>Skin Care</button>
           </div>
         </div>
       </div>
-      <div className={`cards flex flex-wrap justify-around ${theme === 'light' ? 'bg-white' : 'bg-gray-900'}`}>
+      <div className={`cards flex flex-wrap justify-around ${theme === 'light' ? 'bg-lime-100' : 'bg-gray-900'}`}>
         {ProductArray.map((obj) => (
           <ProductCard
             obj={obj}
