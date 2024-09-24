@@ -133,7 +133,7 @@ const Home = () => {
               className={`w-full h-12 px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${theme === 'light' ? 'bg-gray-100 border-gray-300' : 'bg-gray-700 border-gray-600'}`}
             />
             <button
-              className="absolute inset-y-0 right-0 flex items-center pr-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200"
+              className="absolute inset-y-0 right-0 flex items-center pr-3 pl-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200"
               onClick={searchProduct}
             >
               Search
