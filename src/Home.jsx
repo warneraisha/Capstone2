@@ -1,359 +1,170 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import ProductCard from './ProductCard';
 import ShimmerUI from './shimmerUI';
 import { Theme } from './utility/ThemeContext';
+import { FaTshirt, FaShoePrints, FaRegClock, FaMobileAlt, FaTabletAlt, FaLaptop, FaShoppingBasket, FaStar } from 'react-icons/fa'; // Updated imports
 
-let Home = () => {
-  let [allData, setAllData] = useState([]);
-  let [ProductArray, setProductArray] = useState([]);
-  let [searchText, setSearchText] = useState('');
+const Menu = ({ title, items, filterProduct, theme, icon }) => {
+  const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef(null);
 
-  // State for menu visibility
-  const [showFashionMenu, setShowFashionMenu] = useState(false);
-  const [showAccessoriesMenu, setShowAccessoriesMenu] = useState(false);
-  const [showElectronicsMenu, setShowElectronicsMenu] = useState(false);
+  const handleMenuToggle = () => setShowMenu((prev) => !prev);
 
-  let getData = async () => {
-    let data = await fetch('https://dummyjson.com/products?limit=0&skip=30');
-    let obj = await data.json();
+  const submenuStyles = theme === 'light' ? 
+    'absolute bg-white text-gray-800' : 
+    'absolute bg-gray-800 text-gray-300';
 
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setShowMenu(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div className="relative z-50" ref={menuRef}>
+      <button
+        className="flex items-center p-2 font-medium transition-all duration-200 bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg"
+        onClick={handleMenuToggle}
+        aria-expanded={showMenu}
+      >
+        {icon} {title}
+      </button>
+      {showMenu && (
+        <ul className={`${submenuStyles} border rounded-md shadow-lg mt-2 p-2`}>
+          {items.map((item) => (
+            <li key={item.category}>
+              <button
+                className="flex items-center p-2 font-medium w-full text-left transition-all duration-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md"
+                onClick={() => {
+                  filterProduct(item.category);
+                  setShowMenu(false);
+                }}
+              >
+                {item.icon} {item.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+const Home = () => {
+  const [allData, setAllData] = useState([]);
+  const [ProductArray, setProductArray] = useState([]);
+  const [searchText, setSearchText] = useState('');
+
+  const { theme } = useContext(Theme);
+
+  const getData = async () => {
+    const response = await fetch('https://dummyjson.com/products?limit=0&skip=30');
+    const obj = await response.json();
     setProductArray(obj.products);
     setAllData(obj.products);
   };
 
-  // This effect is used to fetch data when the component mounts
-  // The dependency array is empty, so it will only run once
-  // The function getData is called and it will fetch the data
-  // and set the state with the data
   useEffect(() => {
     getData();
   }, []);
 
-  let filterProductData = (fn) => {
-    let data = allData.filter(fn);
+  const filterProductData = (fn) => {
+    const data = allData.filter(fn);
     setProductArray(data);
   };
 
-  let filterTopRated = (obj) => {
-    return obj.rating > 4.5;
-  };
+  const filterTopRated = (obj) => obj.rating > 4.5;
 
-  let filterProduct = (proCategory) => {
-    let fn = (obj) => {
-      return proCategory.toLowerCase() === obj.category.toLowerCase();
-    };
+  const filterProduct = (proCategory) => {
+    const fn = (obj) => proCategory.toLowerCase() === obj.category.toLowerCase();
     filterProductData(fn);
   };
 
-  // Search Filter
-  let searchProduct = () => {
-    let fn = (obj) =>
-      obj.title.toLowerCase().includes(searchText.toLowerCase());
+  const searchProduct = () => {
+    const fn = (obj) => obj.title.toLowerCase().includes(searchText.toLowerCase());
     filterProductData(fn);
     setSearchText('');
   };
 
-  // Handle Menu Item Click
-  const handleMenuItemClick = (menuSetter) => {
-    menuSetter(false); // Close the submenu
-  };
-
-  // Handle Submenu Toggle
-  const handleMenuToggle = (menuId, setter) => {
-    setter((prev) => !prev); // Toggle the visibility
-  };
-
   if (ProductArray.length === 0) {
-    return (
-      <div>
-        <ShimmerUI />
-      </div>
-    );
+    return <ShimmerUI />;
   }
 
-  let { theme, setTheme } = useContext(Theme);
+  const fashionItems = [
+    { label: "Men's Clothing", category: 'mens-shirts', icon: <FaTshirt className="mr-2" /> },
+    { label: "Men's Shoes", category: 'mens-shoes', icon: <FaShoePrints className="mr-2" /> },
+    { label: "Men's Watches", category: 'mens-watches', icon: <FaRegClock className="mr-2" /> },
+    { label: "Women's Watches", category: 'womens-watches', icon: <FaRegClock className="mr-2" /> },
+    { label: "Women's Shoes", category: 'womens-shoes', icon: <FaShoePrints className="mr-2" /> },
+    { label: "Women's Dresses", category: 'womens-dresses', icon: <FaTshirt className="mr-2" /> },
+  ];
 
-  // Define card theme classes
-  let lightTheme = 'cards flex flex-wrap justify-around bg-white';
-  let darkTheme = 'cards flex flex-wrap justify-around bg-gray-900';
+  const accessoryItems = [
+    { label: "Mobile", category: 'mobile-accessories',  icon: <FaMobileAlt className="mr-2" /> },
+    { label: "Sunglasses", category: 'sunglasses', icon: <FaShoppingBasket className="mr-2" /> },
+    { label: "Sports", category: 'sports-accessories', icon: <FaShoppingBasket className="mr-2" /> },
+    { label: "Kitchen", category: 'kitchen-accessories', icon: <FaShoppingBasket className="mr-2" /> },
+    { label: "Jewellery", category: 'womens-jewellery', icon: <FaShoppingBasket className="mr-2" /> },
+  ];
 
-  // Define nav-items theme classes
-  let lightThemeNav = 'bg-white text-gray-700';
-  let darkThemeNav = 'bg-gray-900 text-white';
-
-  // Define input field theme classes
-  const inputLightTheme = 'bg-gray-100 border-gray-300';
-  const inputDarkTheme = 'bg-gray-700 border-gray-600';
-
-  // Define submenu theme classes
-  const submenuLightTheme = 'bg-white text-gray-700';
-  const submenuDarkTheme = 'bg-gray-900 text-gray-300';
+  const electronicsItems = [
+    { label: "Smartphones", category: 'smartphones', icon: <FaMobileAlt className="mr-2" /> },
+    { label: "Laptops", category: 'laptops', icon: <FaLaptop className="mr-2" /> },
+    { label: "Tablets", category: 'tablets', icon: <FaTabletAlt className="mr-2" /> },
+  ];
 
   return (
     <>
-      <div
-        className={`shadow-md p-4 ${
-          theme == 'light' ? lightThemeNav : darkThemeNav
-        }`}
-      >
+      <div className={`shadow-md p-4 ${theme === 'light' ? 'bg-white text-gray-700' : 'bg-gray-900 text-white'}`}>
         <div className="flex items-center justify-between max-w-7xl mx-auto">
-          {/* Search Bar */}
           <div className="relative w-full max-w-md">
             <input
               value={searchText}
               onChange={(event) => setSearchText(event.target.value)}
               type="text"
               placeholder="Search..."
-              className={`w-full h-12 px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                theme === 'light' ? inputLightTheme : inputDarkTheme
-              }`}
+              className={`w-full h-12 px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${theme === 'light' ? 'bg-gray-100 border-gray-300' : 'bg-gray-700 border-gray-600'}`}
             />
             <button
-              className="absolute inset-y-0 right-0 flex items-center pr-3"
+              className="absolute inset-y-0 right-0 flex items-center pr-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200"
               onClick={searchProduct}
             >
               Search
             </button>
           </div>
 
-          {/* Menu */}
           <div className="flex space-x-4">
             <button
-              className=" font-medium"
+              className="flex items-center font-medium transition-all duration-200 bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg"
               onClick={() => filterProductData(filterTopRated)}
             >
-              Top Rated
+              <FaStar className="mr-2" /> Top Rated
             </button>
 
-            {/* Parent Menu: Fashion */}
-            <div className="relative z-50">
-              <button
-                className=" p-2  font-medium"
-                onClick={() => handleMenuToggle('fashion', setShowFashionMenu)}
-              >
-                Fashion
-              </button>
-              {showFashionMenu && (
-                <ul className="absolute bg-white border rounded-md shadow-lg mt-2">
-                  <li>
-                    <button
-                      className=" p-2  font-medium w-full text-left"
-                      onClick={() => {
-                        filterProduct('mens-shirts');
-                        handleMenuItemClick(setShowFashionMenu);
-                      }}
-                    >
-                      Men's Clothing
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className=" p-2 font-medium w-full text-left"
-                      onClick={() => {
-                        filterProduct('mens-shoes');
-                        handleMenuItemClick(setShowFashionMenu);
-                      }}
-                    >
-                      Men's Shoes
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className=" p-2 font-medium w-full text-left"
-                      onClick={() => {
-                        filterProduct('mens-watches');
-                        handleMenuItemClick(setShowFashionMenu);
-                      }}
-                    >
-                      Men's Watches
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className=" p-2 font-medium w-full text-left"
-                      onClick={() => {
-                        filterProduct('womens-watches');
-                        handleMenuItemClick(setShowFashionMenu);
-                      }}
-                    >
-                      Women's Watches
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className=" p-2 font-medium w-full text-left"
-                      onClick={() => {
-                        filterProduct('womens-shoes');
-                        handleMenuItemClick(setShowFashionMenu);
-                      }}
-                    >
-                      Women's Shoes
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className=" p-2 font-medium w-full text-left"
-                      onClick={() => {
-                        filterProduct('womens-dresses');
-                        handleMenuItemClick(setShowFashionMenu);
-                      }}
-                    >
-                      Women's Dresses
-                    </button>
-                  </li>
-                </ul>
-              )}
-            </div>
+            <Menu title="Fashion" items={fashionItems} filterProduct={filterProduct} theme={theme} icon={<FaTshirt />} />
+            <Menu title="Accessories" items={accessoryItems} filterProduct={filterProduct} theme={theme} icon={<FaShoppingBasket />} />
+            <Menu title="Electronics" items={electronicsItems} filterProduct={filterProduct} theme={theme} icon={<FaLaptop />} />
 
-            {/* Parent Menu: Accessories */}
-            <div className="relative z-50">
-              <button
-                className=" p-2 font-medium"
-                onClick={() =>
-                  handleMenuToggle('accessories', setShowAccessoriesMenu)
-                }
-              >
-                Accessories
-              </button>
-              {showAccessoriesMenu && (
-                <ul className="absolute bg-white border rounded-md shadow-lg mt-2">
-                  <li>
-                    <button
-                      className=" p-2 font-medium w-full text-left"
-                      onClick={() => {
-                        filterProduct('mobile-accessories');
-                        handleMenuItemClick(setShowAccessoriesMenu);
-                      }}
-                    >
-                      Mobile
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className=" p-2 font-medium w-full text-left"
-                      onClick={() => {
-                        filterProduct('sunglasses');
-                        handleMenuItemClick(setShowAccessoriesMenu);
-                      }}
-                    >
-                      Sunglasses
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className=" p-2 font-medium w-full text-left"
-                      onClick={() => {
-                        filterProduct('sports-accessories');
-                        handleMenuItemClick(setShowAccessoriesMenu);
-                      }}
-                    >
-                      Sports
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className=" p-2 font-medium w-full text-left"
-                      onClick={() => {
-                        filterProduct('kitchen-accessories');
-                        handleMenuItemClick(setShowAccessoriesMenu);
-                      }}
-                    >
-                      Kitchen
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className=" p-2 font-medium w-full text-left"
-                      onClick={() => {
-                        filterProduct('womens-jewellery');
-                        handleMenuItemClick(setShowAccessoriesMenu);
-                      }}
-                    >
-                      Jewellery
-                    </button>
-                  </li>
-                </ul>
-              )}
-            </div>
-
-            {/* Parent Menu: Electronics */}
-            <div className="relative z-50">
-              <button
-                className=" p-2 font-medium"
-                onClick={() =>
-                  handleMenuToggle('electronics', setShowElectronicsMenu)
-                }
-              >
-                Electronics
-              </button>
-              {showElectronicsMenu && (
-                <ul className="absolute bg-white border rounded-md shadow-lg mt-2">
-                  <li>
-                    <button
-                      className=" p-2 font-medium w-full text-left"
-                      onClick={() => {
-                        filterProduct('smartphones');
-                        handleMenuItemClick(setShowElectronicsMenu);
-                      }}
-                    >
-                      Smartphones
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className=" p-2 font-medium w-full text-left"
-                      onClick={() => {
-                        filterProduct('laptops');
-                        handleMenuItemClick(setShowElectronicsMenu);
-                      }}
-                    >
-                      Laptops
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className=" p-2 font-medium w-full text-left"
-                      onClick={() => {
-                        filterProduct('tablets');
-                        handleMenuItemClick(setShowElectronicsMenu);
-                      }}
-                    >
-                      Tablets
-                    </button>
-                  </li>
-                </ul>
-              )}
-            </div>
-
-            {/* Individual Buttons Without Submenus */}
-            <button
-              className=" p-2 font-medium"
-              onClick={() => filterProduct('motorcycle')}
-            >
-              Motorcycle
-            </button>
-            <button
-              className=" p-2 font-medium"
-              onClick={() => filterProduct('groceries')}
-            >
-              Groceries
-            </button>
-            <button
-              className=" p-2 font-medium"
-              onClick={() => filterProduct('skin-care')}
-            >
-              Skin Care
-            </button>
+            <button className="p-2 font-medium transition-colors duration-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg" onClick={() => filterProduct('motorcycle')}>Motorcycle</button>
+            <button className="p-2 font-medium transition-colors duration-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg" onClick={() => filterProduct('groceries')}>Groceries</button>
+            <button className="p-2 font-medium transition-colors duration-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg" onClick={() => filterProduct('skin-care')}>Skin Care</button>
           </div>
         </div>
       </div>
-      <div className={theme == 'light' ? lightTheme : darkTheme}>
+      <div className={`cards flex flex-wrap justify-around ${theme === 'light' ? 'bg-white' : 'bg-gray-900'}`}>
         {ProductArray.map((obj) => (
           <ProductCard
             obj={obj}
             key={obj.id}
             showRibbon={obj.rating > 4.7}
-          ></ProductCard>
+          />
         ))}
       </div>
     </>

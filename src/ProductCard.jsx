@@ -104,7 +104,7 @@ const ProductCard = ({ obj, showRibbon }) => {
       {/* Conditionally render the ribbon if showRibbon is true */}
       {showRibbon && (
         <div className="absolute left-0 top-0 h-16 w-16">
-          <div className="bg-indigo-700 absolute transform -rotate-45 text-center text-white font-semibold py-1 left-[-34px] top-[32px] w-[170px]">
+          <div className="bg-indigo-700 z-10 absolute transform -rotate-45 text-center text-white font-semibold py-1 left-[-34px] top-[32px] w-[170px]">
             Popular
           </div>
         </div>
@@ -131,7 +131,7 @@ const ProductCard = ({ obj, showRibbon }) => {
           </p>
           <div className="flex items-center">
             {stars}
-            <span className="mr-2 ml-3 rounded bg-yellow-200 px-2.5 py-0.5 text-xs font-semibold">
+            <span className="mr-2 ml-3 rounded bg-yellow-200 px-2.5 py-0.5 text-black text-xs font-semibold">
               {rating.toFixed(1)}
             </span>
           </div>
