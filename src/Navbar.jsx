@@ -12,13 +12,13 @@ const Navbar = () => {
 
   // Theme class names
   const themeClasses =
-    theme === 'light' ? 'bg-white text-black' : 'bg-gray-700 text-white';
+    theme === 'light' ? 'bg-white text-black ' : 'bg-gray-700 text-white';
 
   return (
-    <nav className={themeClasses}>
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <nav className={themeClasses} >
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
         <Link to="/">
-          <span className="self-center text-2xl font-sans  font-semibold whitespace-nowrap">
+          <span className="self-center text-2xl font-sans font-semibold whitespace-nowrap">
             FlippyKart
           </span>
         </Link>

@@ -160,7 +160,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className={`cards flex flex-wrap justify-around ${theme === 'light' ? 'bg-lime-100' : 'bg-gray-900'}`}>
+      <div className={`cards flex flex-wrap justify-around ${theme === 'light' ? 'bg-slate-100' : 'bg-gray-900'}`}>
         {ProductArray.map((obj) => (
           <ProductCard
             obj={obj}

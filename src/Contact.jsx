@@ -3,7 +3,7 @@ import React from 'react';
 const Contact = () => {
   return (
     <>
-      <div class="font-sans text-base text-gray-900 sm:px-10">
+      <div class="font-sans text-base text-gray-900 sm:px-10 bg-slate-200">
         <div class="text-base text-gray-900">
           <div class="mx-auto w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
             <div class="mx-2 pt-12 text-center md:mx-auto md:w-2/3 md:pb-12">
@@ -21,13 +21,13 @@ const Contact = () => {
           </div>
         </div>
         <div class="mx-auto mb-20 flex w-full max-w-screen-lg flex-col overflow-hidden rounded-xl text-gray-900 md:flex-row md:border md:shadow-lg">
-          <form class="mx-auto w-full max-w-xl border-gray-200 px-10 py-8 md:px-8">
+          <form class="mx-auto w-full max-w-xl  border-gray-200 px-10 py-8 md:px-8">
             <div class="mb-4">
               <label class="text mb-2 block font-medium" for="email">
                 Your e-mail:
               </label>
               <input
-                class="w-full rounded border border-gray-300 px-3 py-2 outline-none ring-blue-500 focus:ring"
+                class="w-full rounded border border-gray-300 px-3 py-2 outline-none ring-blue-500 focus:ring bg-slate-200"
                 id="email"
                 type="email"
                 required=""
@@ -38,7 +38,7 @@ const Contact = () => {
                 Subject:
               </label>
               <input
-                class="w-full rounded border border-gray-300 px-3 py-2 outline-none ring-blue-500 focus:ring"
+                class="w-full rounded border bg-slate-200 border-gray-300 px-3 py-2 outline-none ring-blue-500 focus:ring"
                 id="subject"
                 type="subject"
                 required=""
@@ -49,7 +49,7 @@ const Contact = () => {
                 Message:
               </label>
               <textarea
-                class="h-52 w-full rounded border border-gray-300 px-3 py-2 outline-none ring-blue-500 focus:ring"
+                class="h-52 w-full rounded border border-gray-300 px-3 py-2 outline-none ring-blue-500 focus:ring bg-slate-200"
                 id="message"
                 required=""
               ></textarea>
