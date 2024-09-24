@@ -177,6 +177,9 @@ const SingleProduct = () => {
     reviews,
   } = obj;
 
+  console.log(obj);
+  
+
   return (
     // Apply theme-based class to the top-level div
     <div className={theme === 'dark' ? 'dark' : ''}>
@@ -209,7 +212,7 @@ const SingleProduct = () => {
                   </div>
                   <div className="flex justify-between text-sm font-medium text-gray-900 dark:text-gray-200">
                     <span>Brand</span>
-                    <span>{brand}</span>
+                    <span> {brand}</span>
                   </div>
                   <div className="flex justify-between text-sm font-medium text-gray-900 dark:text-gray-200">
                     <span>Description</span>

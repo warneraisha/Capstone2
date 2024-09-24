@@ -12,7 +12,7 @@ const Navbar = () => {
 
   // Theme class names
   const themeClasses =
-    theme === 'light' ? 'bg-white text-black' : 'bg-gray-800 text-white';
+    theme === 'light' ? 'bg-white text-black' : 'bg-gray-700 text-white';
 
   return (
     <nav className={themeClasses}>
