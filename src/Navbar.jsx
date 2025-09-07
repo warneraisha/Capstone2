@@ -19,7 +19,7 @@ const Navbar = () => {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
         <Link to="/">
           <span className="self-center text-2xl font-sans font-semibold whitespace-nowrap">
-            FlippyKart
+            Unique Store
           </span>
         </Link>
         <div

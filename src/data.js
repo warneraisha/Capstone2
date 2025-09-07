@@ -458,17 +458,7 @@ let ProductData = [
       'https://cdn.dummyjson.com/products/images/groceries/Rice/thumbnail.png',
   },
   {
-    id: 39,
-    title: 'Soft Drinks',
-    description:
-      'Assorted soft drinks in various flavors, perfect for refreshing beverages.',
-    category: 'groceries',
-    price: 1.99,
-    discountPercentage: 1.88,
-    rating: 4.59,
-    stock: 78,
-    tags: ['beverages'],
-    sku: 'I1ZNSLXJ',
+    
     weight: 9,
     dimensions: {
       width: 15.73,

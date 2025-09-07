@@ -2,60 +2,9 @@ import { useState, useEffect, useContext, useRef } from 'react';
 import ProductCard from './ProductCard';
 import ShimmerUI from './shimmerUI';
 import { Theme } from './utility/ThemeContext';
-import { FaTshirt, FaShoePrints, FaRegClock, FaMobileAlt, FaTabletAlt, FaLaptop, FaShoppingBasket, FaStar } from 'react-icons/fa'; // Updated imports
+import { FaStar } from 'react-icons/fa';
 
-const Menu = ({ title, items, filterProduct, theme, icon }) => {
-  const [showMenu, setShowMenu] = useState(false);
-  const menuRef = useRef(null);
 
-  const handleMenuToggle = () => setShowMenu((prev) => !prev);
-
-  const submenuStyles = theme === 'light' ? 
-    'absolute bg-white text-gray-800' : 
-    'absolute bg-gray-800 text-gray-300';
-
-  const handleClickOutside = (event) => {
-    if (menuRef.current && !menuRef.current.contains(event.target)) {
-      setShowMenu(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  return (
-    <div className="relative z-50" ref={menuRef}>
-      <button
-        className="flex items-center p-2 font-medium transition-all duration-200 bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg"
-        onClick={handleMenuToggle}
-        aria-expanded={showMenu}
-      >
-        {icon} {title}
-      </button>
-      {showMenu && (
-        <ul className={`${submenuStyles} border rounded-md shadow-lg mt-2 p-2`}>
-          {items.map((item) => (
-            <li key={item.category}>
-              <button
-                className="flex items-center p-2 font-medium w-full text-left transition-all duration-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md"
-                onClick={() => {
-                  filterProduct(item.category);
-                  setShowMenu(false);
-                }}
-              >
-                {item.icon} {item.label}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-};
 
 const Home = () => {
   const [allData, setAllData] = useState([]);
@@ -65,10 +14,31 @@ const Home = () => {
   const { theme } = useContext(Theme);
 
   const getData = async () => {
-    const response = await fetch('https://dummyjson.com/products?limit=0&skip=30');
+    const response = await fetch('https://dummyjson.com/products?limit=8&skip=30');
     const obj = await response.json();
+
+    // Custom images from Unsplash
+    const customImages = [
+      "https://images.unsplash.com/photo-1514361892635-6e5a4ea41f95",
+      "https://images.unsplash.com/photo-1519681391541-310a3e3c1a49",
+      "https://images.unsplash.com/photo-1470337458703-46ad1756a187",
+      "https://images.unsplash.com/photo-1513635269975-59663e0ac10d",
+      "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908",
+      "https://images.unsplash.com/photo-1529333166437-775ea6d5d570",
+      "https://images.unsplash.com/photo-1509042239860-f550ce710b93"
+    ];
+
+    // Override thumbnails with custom images
+    const products = obj.products.map((p, i) => ({
+      ...p,
+      thumbnail: customImages[i % customImages.length],
+    }));
+    
     setProductArray(obj.products);
     setAllData(obj.products);
+
+    // Debug: confirm new thumbnails
+  console.log('Thumbnails:', products.slice(0, 4).map(p => p.thumbnail));
   };
 
   useEffect(() => {
@@ -82,10 +52,7 @@ const Home = () => {
 
   const filterTopRated = (obj) => obj.rating > 4.5;
 
-  const filterProduct = (proCategory) => {
-    const fn = (obj) => proCategory.toLowerCase() === obj.category.toLowerCase();
-    filterProductData(fn);
-  };
+  
 
   const searchProduct = () => {
     const fn = (obj) => obj.title.toLowerCase().includes(searchText.toLowerCase());
@@ -97,28 +64,7 @@ const Home = () => {
     return <ShimmerUI />;
   }
 
-  const fashionItems = [
-    { label: "Men's Clothing", category: 'mens-shirts', icon: <FaTshirt className="mr-2" /> },
-    { label: "Men's Shoes", category: 'mens-shoes', icon: <FaShoePrints className="mr-2" /> },
-    { label: "Men's Watches", category: 'mens-watches', icon: <FaRegClock className="mr-2" /> },
-    { label: "Women's Watches", category: 'womens-watches', icon: <FaRegClock className="mr-2" /> },
-    { label: "Women's Shoes", category: 'womens-shoes', icon: <FaShoePrints className="mr-2" /> },
-    { label: "Women's Dresses", category: 'womens-dresses', icon: <FaTshirt className="mr-2" /> },
-  ];
 
-  const accessoryItems = [
-    { label: "Mobile", category: 'mobile-accessories',  icon: <FaMobileAlt className="mr-2" /> },
-    { label: "Sunglasses", category: 'sunglasses', icon: <FaShoppingBasket className="mr-2" /> },
-    { label: "Sports", category: 'sports-accessories', icon: <FaShoppingBasket className="mr-2" /> },
-    { label: "Kitchen", category: 'kitchen-accessories', icon: <FaShoppingBasket className="mr-2" /> },
-    { label: "Jewellery", category: 'womens-jewellery', icon: <FaShoppingBasket className="mr-2" /> },
-  ];
-
-  const electronicsItems = [
-    { label: "Smartphones", category: 'smartphones', icon: <FaMobileAlt className="mr-2" /> },
-    { label: "Laptops", category: 'laptops', icon: <FaLaptop className="mr-2" /> },
-    { label: "Tablets", category: 'tablets', icon: <FaTabletAlt className="mr-2" /> },
-  ];
 
   return (
     <>
@@ -148,19 +94,12 @@ const Home = () => {
               <FaStar className="mr-2" /> Top Rated
             </button>
 
-            <Menu title="Fashion" items={fashionItems} filterProduct={filterProduct} theme={theme} icon={ <FaTshirt />} />
-
-            <Menu title="Accessories" items={accessoryItems} filterProduct={filterProduct} theme={theme} icon={<FaShoppingBasket />} />
-
-            <Menu title="Electronics" items={electronicsItems} filterProduct={filterProduct} theme={theme} icon={<FaLaptop />} />
-
-            <button className="p-2 font-medium transition-colors duration-200 hover:bg-gray-400 dark:hover:bg-gray-200 rounded-lg" onClick={() => filterProduct('motorcycle')}>Motorcycle</button>
-            <button className="p-2 font-medium transition-colors duration-200 hover:bg-gray-400 dark:hover:bg-gray-700 rounded-lg" onClick={() => filterProduct('groceries')}>Groceries</button>
-            <button className="p-2 font-medium transition-colors duration-200 hover:bg-gray-400 dark:hover:bg-gray-700 rounded-lg" onClick={() => filterProduct('skin-care')}>Skin Care</button>
+            
+            
           </div>
         </div>
       </div>
-      <div className={`cards flex flex-wrap justify-around ${theme === 'light' ? 'bg-slate-100' : 'bg-gray-900'}`}>
+      <div className={`cards flex flex-wrap justify-around ${theme === 'dark' ? 'bg-slate-100' : 'bg-gray-900'}`}>
         {ProductArray.map((obj) => (
           <ProductCard
             obj={obj}

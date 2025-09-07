@@ -2,18 +2,8 @@ import React, { useEffect, useState, useContext } from 'react'; // Corrected use
 import { Link, useParams } from 'react-router-dom';
 import ShimmerProductCard from './ShimmerProductCard';
 import { Theme } from './utility/ThemeContext';
+import PropTypes from "prop-types";
 
-// Define a set of profile images
-const profileImages = [
-  'https://randomuser.me/api/portraits/men/81.jpg',
-  'https://randomuser.me/api/portraits/women/61.jpg',
-  'https://randomuser.me/api/portraits/men/92.jpg',
-  'https://randomuser.me/api/portraits/women/54.jpg',
-  'https://randomuser.me/api/portraits/men/13.jpg',
-  'https://randomuser.me/api/portraits/women/20.jpg',
-  'https://randomuser.me/api/portraits/men/40.jpg',
-  'https://randomuser.me/api/portraits/women/30.jpg',
-];
 
 // Upper Case Letter
 
@@ -21,11 +11,7 @@ const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-// Function to get a random profile image
-const getRandomProfileImage = () => {
-  const randomIndex = Math.floor(Math.random() * profileImages.length);
-  return profileImages[randomIndex];
-};
+
 
 // Helper component for breadcrumb navigation
 const Breadcrumb = ({ category, brand }) => (
@@ -89,6 +75,7 @@ const ImageGallery = ({ images, selectedImage, setSelectedImage, title }) => (
         />
       </div>
     </div>
+    
 
     <div className="mt-2 w-full lg:order-1 lg:w-32 lg:flex-shrink-0">
       <div className="flex flex-row items-start lg:flex-col">
@@ -263,7 +250,7 @@ const SingleProduct = () => {
                     <div className="flex items-start">
                       <img
                         className="block h-10 w-10 max-w-full flex-shrink-0 rounded-full align-middle"
-                        src={getRandomProfileImage()} // Use the random profile image function
+                        src={"https://via.placeholder.com/40"()} // Placeholder
                         alt={review.reviewerName}
                       />
                       <div className="ml-6">
